@@ -1,0 +1,52 @@
+{
+  "agent_submission": {
+    "status": "success",
+    "sim_time": 341.92201624042355,
+    "physical_success": true,
+    "success": true
+  },
+  "condition_details": {
+    "arrive_outside_elevator": {
+      "success": true,
+      "conditions": {
+        "target_floor": true,
+        "building_floor_contact": true,
+        "footprint_on_building_floor": true,
+        "outside_cabin_and_threshold": true
+      }
+    }
+  },
+  "schema_version": "2.0",
+  "task_id": "service_center/L01",
+  "seed": 0,
+  "track": "fixed",
+  "full_success": true,
+  "terminal_goal_fraction": 1.0,
+  "goals": {
+    "arrive_outside_elevator": true
+  },
+  "stage_history": {},
+  "events": [],
+  "sim_time_s": 341.92201624042355,
+  "wall_time_s": 1765.6021862939997,
+  "distance_m": 27.339910321886787,
+  "invalid_intervention": false,
+  "failure": null,
+  "event_counts": {
+    "drop": 0,
+    "wrong_delivery": 0,
+    "unintended_contact": 0,
+    "human_intervention": 0,
+    "recovery": 0,
+    "stage_attempt": 0
+  },
+  "timings_s": {
+    "device_wait": 0,
+    "arm_operation": 0,
+    "policy_inference": 0
+  },
+  "validation_scope": "trusted snapshot replay; policy performance requires an instrumented full run",
+  "robot": "unitree_g1",
+  "backend": "isaac",
+  "cancelled": false
+}

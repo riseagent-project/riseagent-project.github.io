@@ -1,0 +1,17 @@
+/* Shared decorative headers: the film fades into the page in either theme. */
+.ambient-hero{position:relative;isolation:isolate;display:flex;align-items:center;min-height:clamp(380px,55vh,620px);padding:52px 0 64px;gap:0}
+.ambient-hero .ambient-media{position:absolute;inset:0 -32px;margin:0;z-index:-1;overflow:hidden;pointer-events:none;user-select:none;background-size:cover;background-position:center;opacity:.92;mask-image:linear-gradient(to bottom,transparent,#000 8%,#000 82%,transparent);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 8%,#000 82%,transparent)}
+.ambient-media::after{content:"";position:absolute;inset:0;background:linear-gradient(270deg,var(--bg),transparent 5%),linear-gradient(90deg,var(--bg) 0%,color-mix(in srgb,var(--bg) 72%,transparent) 30%,color-mix(in srgb,var(--bg) 12%,transparent) 65%,color-mix(in srgb,var(--bg) 6%,transparent) 100%);pointer-events:none}
+.ambient-hero .ambient-media video{display:block;width:100%;height:100%;aspect-ratio:auto;object-fit:cover;pointer-events:none;opacity:0;transition:opacity .8s ease}
+.ambient-hero .ambient-media video.is-playing{opacity:1}
+.ambient-content{position:relative;z-index:1;width:100%;max-width:720px}
+.ambient-hero .back-link,.ambient-hero .body-back{margin-bottom:28px}
+.ambient-hero .brand-mark,.ambient-hero .building-subtitle{display:none}
+.ambient-hero .eyebrow{margin-bottom:16px}
+.ambient-hero .building-facts{margin:26px 0;gap:28px}
+.body-intro.ambient-hero .ambient-media{background-size:contain;background-repeat:no-repeat;background-position:right center}
+.body-intro.ambient-hero .ambient-media video{object-fit:contain;object-position:right center}
+.body-intro.ambient-hero .ambient-content{max-width:600px}
+.body-intro.ambient-hero .body-intro-actions{margin-top:32px;max-width:430px}
+@media(max-width:600px){.ambient-hero{min-height:420px;padding:32px 0 48px}.ambient-hero .ambient-media{inset:0 -20px;opacity:.85}.ambient-media::after{background:linear-gradient(90deg,color-mix(in srgb,var(--bg) 86%,transparent),color-mix(in srgb,var(--bg) 55%,transparent) 45%,color-mix(in srgb,var(--bg) 18%,transparent))}.ambient-hero .building-facts{gap:18px;flex-wrap:wrap}.ambient-hero .eyebrow{font-size:9px;letter-spacing:1.2px}.body-intro.ambient-hero .ambient-media{background-size:cover}.body-intro.ambient-hero .ambient-media video{object-fit:cover}}
+@media(prefers-reduced-motion:reduce){.ambient-hero .ambient-media video{display:none;transition:none}}

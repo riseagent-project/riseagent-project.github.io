@@ -1,0 +1,884 @@
+{
+  "version": 3,
+  "building": "residential_b",
+  "source_scene": "residential_b",
+  "name": "住宅",
+  "status": "design_pending_validation",
+  "categories": {
+    "cross_floor": "跨楼层通行",
+    "door_access": "门与门禁交互",
+    "facility_logic": "设施状态控制",
+    "integrated_service": "综合服务"
+  },
+  "task_groups": [
+    {
+      "id": "common",
+      "name": "通用任务",
+      "tasks": [
+        {
+          "id": "residential_b/shared_N01",
+          "title": "单电梯住户层到达",
+          "instruction": "使用唯一的 E1 从一楼到指定住户层并完整驶出；不要求切换第二部电梯。",
+          "design_revision": 3,
+          "category": "cross_floor",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "spawn_floor != target_floor",
+            "spawn_outside_cabin",
+            "normal_interlocks"
+          ],
+          "success_requirements": [
+            "actual_target_building_and_floor",
+            "full_body_and_payload_clear_of_threshold",
+            "stable_ground_support",
+            "observed_physical_elevator_use_history"
+          ],
+          "facility_condition_variants": [
+            "normal_call_and_selection",
+            "held_button_requires_release",
+            "wrong_floor_opening_is_not_arrival",
+            "obstruction_hold_and_reopen",
+            "fully_exit_before_success"
+          ],
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        },
+        {
+          "id": "residential_b/shared_N02",
+          "title": "单梯临时停运后恢复",
+          "instruction": "唯一 E1 初始暂不可用；根据公开提示等待预设有限时间的恢复，再重新呼梯到指定住户层；不要求第二部梯。",
+          "design_revision": 3,
+          "category": "cross_floor",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "first_required_stop_differs_from_spawn_floor",
+            "spawn_outside_cabin",
+            "normal_interlocks",
+            "frozen_stop_or_availability_protocol"
+          ],
+          "success_requirements": [
+            "actual_target_building_and_floor",
+            "full_body_and_payload_clear_of_threshold",
+            "stable_ground_support",
+            "observed_physical_elevator_use_history",
+            "availability_event_and_chosen_lift_history"
+          ],
+          "distinguishing_mechanism": "wait_recovery",
+          "blocking_dependency": "需绑定可复现停运或恢复初态、可见提示、可行时间预算和通行历史裁判；恢复不得依赖无限等待或策略可调用的调试接口。",
+          "facility_condition_variants": [
+            "normal_call_and_selection",
+            "held_button_requires_release",
+            "wrong_floor_opening_is_not_arrival",
+            "obstruction_hold_and_reopen",
+            "fully_exit_before_success"
+          ],
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        },
+        {
+          "id": "residential_b/shared_D01",
+          "title": "住户门开关与通行",
+          "instruction": "在任务明确授权且初始解锁的 X 或 Y 户入口门完成开门、进出及关门。",
+          "design_revision": 3,
+          "category": "door_access",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "no_payload",
+            "door_starts_closed",
+            "permission_explicit"
+          ],
+          "success_requirements": [
+            "physical_opening",
+            "full_body_passage_history",
+            "requested_final_door_state",
+            "body_clear_of_swing_and_sensor"
+          ],
+          "explicit_logic_features": []
+        },
+        {
+          "id": "residential_b/shared_D02",
+          "title": "包裹交接柜滑门开合",
+          "instruction": "在一楼 Parcel Cabinet 交接台的新增小件柜上滑开门，再关闭；不要求身体进入柜内。",
+          "design_revision": 3,
+          "category": "door_access",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "no_payload",
+            "door_starts_closed",
+            "permission_explicit"
+          ],
+          "success_requirements": [
+            "physical_sliding_opening",
+            "opening_then_closing_history",
+            "final_closed_joint",
+            "no_payload_goal"
+          ],
+          "distinguishing_mechanism": "container_sliding",
+          "blocking_dependency": "已安装独立滑门柜；与入户铰链门分开测试，夹爪操作与裁判待验收。",
+          "candidate_joint": "/World/Environment/Floor_1/TaskFacilities/SlidingCabinet/frame/door_joint",
+          "candidate_joint_exists": true,
+          "explicit_logic_features": []
+        },
+        {
+          "id": "residential_b/shared_C01",
+          "title": "住户照明设置",
+          "instruction": "从门已打开的住户区域，将指定灯设为请求状态；不操作无关设备。",
+          "design_revision": 3,
+          "category": "facility_logic",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "entry_already_open",
+            "requested_circuit_binding",
+            "at_least_one_state_change_required"
+          ],
+          "success_requirements": [
+            "physical_switch_actuation",
+            "actual_target_light_state",
+            "unrelated_circuits_unchanged"
+          ],
+          "explicit_logic_features": [
+            "lighting"
+          ]
+        },
+        {
+          "id": "residential_b/shared_C02",
+          "title": "空调面板模式与设定值控制",
+          "instruction": "在本场景指定可达空调面板上观察初态，将开关、模式和设定值改为任务要求；至少一项需改变，其他设备不变。评分使用面板与控制器实际状态，不要求室温达到设定温度。",
+          "design_revision": 3,
+          "category": "facility_logic",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "entry_already_open",
+            "bound_hvac_panel",
+            "at_least_one_requested_panel_state_differs"
+          ],
+          "success_requirements": [
+            "physical_selective_button_actuation",
+            "requested_power_mode_setpoint",
+            "unrelated_devices_unchanged"
+          ],
+          "blocking_dependency": "需验证两种夹爪不误触相邻按键，并接入模式、开关和设定值裁判；不把按钮几何存在当作可按或热效果证据。",
+          "candidate_panel": "climate_F1_101",
+          "explicit_logic_features": [
+            "hvac"
+          ]
+        },
+        {
+          "id": "residential_b/shared_S01",
+          "title": "跨层两户包裹交接",
+          "instruction": "将一楼包裹柜的两件物品分别送到二楼 X 户 201 和十八楼 Y 户 1802 入户柜，核对完整楼层和户号。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "十八层重复 X 与 Y 户型，各层有包裹柜、入户柜、客厅与厨房点位。楼层特色是楼层户号和户型定位，功能相同的楼层变化归为实例。",
+          "native_station_bindings": {
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "1F Parcel Cabinet",
+              "floor": 1,
+              "position": [
+                18.3,
+                23.36,
+                0.755
+              ],
+              "yaw": 180,
+              "dock_xy": [
+                18.3,
+                24.259999999999998
+              ],
+              "door_id": null,
+              "delivery_min": [
+                18.060000000000002,
+                23.12,
+                0.745
+              ],
+              "delivery_max": [
+                18.54,
+                23.599999999999998,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F2_R01": {
+              "id": "F2_R01",
+              "label": "201 Entry Cabinet",
+              "floor": 2,
+              "position": [
+                12.2,
+                23.6,
+                4.355
+              ],
+              "yaw": 180,
+              "dock_xy": [
+                12.2,
+                24.5
+              ],
+              "door_id": "F2_R01",
+              "delivery_min": [
+                11.959999999999999,
+                23.360000000000003,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                12.44,
+                23.84,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F18_R02": {
+              "id": "F18_R02",
+              "label": "1802 Entry Cabinet",
+              "floor": 18,
+              "position": [
+                22.4,
+                28.5,
+                61.955000000000005
+              ],
+              "yaw": 90,
+              "dock_xy": [
+                23.299999999999997,
+                28.5
+              ],
+              "door_id": "F18_R02",
+              "delivery_min": [
+                22.16,
+                28.26,
+                61.94500000000001
+              ],
+              "delivery_max": [
+                22.639999999999997,
+                28.74,
+                62.145
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "residential_b/shared_S02",
+          "title": "X 户物品寻找归位",
+          "instruction": "在授权且门开放的二楼 X 户客厅找到描述小件，放到该户 Entry Storage，保护其他物品。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "十八层重复 X 与 Y 户型，各层有包裹柜、入户柜、客厅与厨房点位。楼层特色是楼层户号和户型定位，功能相同的楼层变化归为实例。",
+          "native_station_bindings": {
+            "F2_R03": {
+              "id": "F2_R03",
+              "label": "201 Living Console",
+              "floor": 2,
+              "position": [
+                14.7,
+                8.5,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                14.7,
+                7.6
+              ],
+              "door_id": "F2_R01",
+              "delivery_min": [
+                14.459999999999999,
+                8.26,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                14.94,
+                8.74,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F2_X_INSIDE": {
+              "id": "F2_X_INSIDE",
+              "label": "201 Entry Storage",
+              "floor": 2,
+              "position": [
+                12.2,
+                23.6,
+                4.355
+              ],
+              "yaw": 180,
+              "dock_xy": [
+                12.2,
+                24.5
+              ],
+              "door_id": "F2_R01",
+              "delivery_min": [
+                11.959999999999999,
+                23.360000000000003,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                12.44,
+                23.84,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "residential_b/shared_S03",
+          "title": "Y 户取件与离家检查",
+          "instruction": "从十八楼 Y 户 Living Console 取退件，送到同层 Parcel Cabinet，再关闭请求的灯和使用过的门。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "十八层重复 X 与 Y 户型，各层有包裹柜、入户柜、客厅与厨房点位。楼层特色是楼层户号和户型定位，功能相同的楼层变化归为实例。",
+          "native_station_bindings": {
+            "F18_R04": {
+              "id": "F18_R04",
+              "label": "1802 Living Console",
+              "floor": 18,
+              "position": [
+                17.1,
+                8.5,
+                61.955000000000005
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                17.1,
+                7.6
+              ],
+              "door_id": "F18_R02",
+              "delivery_min": [
+                16.860000000000003,
+                8.26,
+                61.94500000000001
+              ],
+              "delivery_max": [
+                17.34,
+                8.74,
+                62.145
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F18_SERVICE": {
+              "id": "F18_SERVICE",
+              "label": "18F Parcel Cabinet",
+              "floor": 18,
+              "position": [
+                18.3,
+                23.36,
+                61.955000000000005
+              ],
+              "yaw": 180,
+              "dock_xy": [
+                18.3,
+                24.259999999999998
+              ],
+              "door_id": null,
+              "delivery_min": [
+                18.060000000000002,
+                23.12,
+                61.94500000000001
+              ],
+              "delivery_max": [
+                18.54,
+                23.599999999999998,
+                62.145
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "residential_b/shared_S04",
+          "title": "厨房订单跨户辨认",
+          "instruction": "仅从二楼 Y 户 Kitchen Pickup 取指定密封包装送到一楼 Parcel Cabinet；X 户相似物品不得移动。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "十八层重复 X 与 Y 户型，各层有包裹柜、入户柜、客厅与厨房点位。楼层特色是楼层户号和户型定位，功能相同的楼层变化归为实例。",
+          "native_station_bindings": {
+            "F2_R06": {
+              "id": "F2_R06",
+              "label": "202 Kitchen Pickup",
+              "floor": 2,
+              "position": [
+                28,
+                10.7,
+                4.355
+              ],
+              "yaw": 180,
+              "dock_xy": [
+                28.0,
+                11.6
+              ],
+              "door_id": "F2_R02",
+              "delivery_min": [
+                27.76,
+                10.459999999999999,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                28.24,
+                10.94,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "1F Parcel Cabinet",
+              "floor": 1,
+              "position": [
+                18.3,
+                23.36,
+                0.755
+              ],
+              "yaw": 180,
+              "dock_xy": [
+                18.3,
+                24.259999999999998
+              ],
+              "door_id": null,
+              "delivery_min": [
+                18.060000000000002,
+                23.12,
+                0.745
+              ],
+              "delivery_max": [
+                18.54,
+                23.599999999999998,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "residential_b/shared_S05",
+          "title": "小件柜取件与住户交接",
+          "instruction": "打开一楼新增小件柜取目标包裹，关柜门，再用唯一电梯送至二楼 X 户入户柜；不要求第二部电梯或双手并发。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "十八层重复 X 与 Y 户型，各层有包裹柜、入户柜、客厅与厨房点位。楼层特色是楼层户号和户型定位，功能相同的楼层变化归为实例。",
+          "native_station_bindings": {
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "1F Parcel Cabinet",
+              "floor": 1,
+              "position": [
+                18.3,
+                23.36,
+                0.755
+              ],
+              "yaw": 180,
+              "dock_xy": [
+                18.3,
+                24.259999999999998
+              ],
+              "door_id": null,
+              "delivery_min": [
+                18.060000000000002,
+                23.12,
+                0.745
+              ],
+              "delivery_max": [
+                18.54,
+                23.599999999999998,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F2_R01": {
+              "id": "F2_R01",
+              "label": "201 Entry Cabinet",
+              "floor": 2,
+              "position": [
+                12.2,
+                23.6,
+                4.355
+              ],
+              "yaw": 180,
+              "dock_xy": [
+                12.2,
+                24.5
+              ],
+              "door_id": "F2_R01",
+              "delivery_min": [
+                11.959999999999999,
+                23.360000000000003,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                12.44,
+                23.84,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "specific",
+      "name": "专用任务",
+      "tasks": []
+    }
+  ]
+}

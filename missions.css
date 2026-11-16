@@ -1,0 +1,55 @@
+/* Compact paired comparisons: A–B changes embodiment; B–C changes scene. */
+.missions-section{padding:56px 0 64px;border-top:1px solid var(--line);scroll-margin-top:30px}
+.missions-section>.section-heading{margin-bottom:18px}
+#missions .comparison-intro{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:22px;color:var(--muted);font-size:12px}
+#missions .comparison-intro p{margin:0;color:var(--ink);font-size:15px}
+#missions .comparison-intro>span{white-space:nowrap;font-size:11px}
+#missions .comparison-axes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+#missions .comparison-axis{display:flex;align-items:center;gap:13px;padding:14px 16px;border:1px solid var(--line);border-radius:8px;background:var(--panel,#fff)}
+#missions .comparison-axis h3{font-size:14px;margin:0 0 3px;line-height:1.4;color:var(--ink)}
+#missions .comparison-axis p{font-size:11px;line-height:1.5;color:var(--muted);margin:0}
+#missions .pair-label{font:600 12px/1.4 monospace;white-space:nowrap;padding:7px 10px;border-radius:4px;background:#eaf4f3;color:#216660}
+#missions .scene-axis .pair-label{background:#eef0fa;color:#515d94}
+#missions .comparison-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+#missions .comparison-card{--ink:#202b32;--muted:#667681;--line:#dce4e8;--accent:#285c83;color:var(--ink);border:1px solid var(--line);border-radius:9px;background:#fff;min-width:0;overflow:hidden}
+#missions .reference-card{border-color:#8aabb8;box-shadow:0 0 0 1px #8aabb81a}
+#missions .comparison-header{padding:15px 15px 13px;border-bottom:1px solid var(--line)}
+#missions .case-heading{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:10px;line-height:1.4;min-height:23px}
+#missions .case-letter{display:grid;place-items:center;width:22px;height:22px;border-radius:4px;background:#eef3f5;color:#405f70;font:600 12px monospace;flex-shrink:0}
+#missions .reference-card .case-letter{background:#365e70;color:#fff}
+#missions .case-heading time{margin-left:auto;font:10px monospace;white-space:nowrap}
+#missions .comparison-header h3{font-size:19px;line-height:1.25;margin:13px 0 12px;font-weight:600;letter-spacing:-.3px}
+#missions .comparison-header h3 small{display:block;color:var(--muted);font-size:11px;font-weight:400;letter-spacing:0;margin-top:4px}
+#missions .case-context{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-size:10px}
+#missions .scene-tag,#missions .elevator-tag{padding:3px 6px;background:#f0f5f5;border-radius:3px;color:#3e6462;white-space:nowrap}
+#missions #mission-apartment-three-elevators .scene-tag,#missions #mission-apartment-three-elevators .elevator-tag{background:#f2f0f8;color:#6a6083}
+#missions .floor-route{margin-left:auto;white-space:nowrap;color:var(--muted);font-size:10px}
+#missions .video-area{padding:10px 10px 0;min-width:0}
+#missions .view-tile{margin:0;min-width:0;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:#fff}
+#missions .view-tile figcaption{display:flex;align-items:center;justify-content:space-between;gap:4px;padding:4px 7px;font-size:10px;color:var(--muted);min-height:25px;box-sizing:border-box}
+#missions .expand{cursor:pointer;background:none;border:0;color:var(--accent);font-size:16px;padding:0 2px;line-height:1}
+#missions .view-screen{position:relative;aspect-ratio:4/3;background:#11191d}
+#missions .view-screen video{display:block;width:100%;height:100%;object-fit:contain;background:#11191d}
+#missions video:fullscreen{object-fit:contain;background:#111}
+#missions .world-speed{position:absolute;right:7px;top:7px;display:flex;align-items:center;gap:4px;font-size:9px;background:#fffffff0;color:#344b5d;padding:3px 5px;border-radius:3px}
+#missions .world-speed select{font:inherit;color:inherit;border:1px solid #ccd5dc;background:#fff;border-radius:2px;padding:1px}
+#missions .observations{margin:9px 0 0}
+#missions .observations>summary{display:flex;align-items:center;gap:5px;cursor:pointer;padding:5px 1px;font-size:11px;color:var(--ink);list-style:none}
+#missions .observations>summary::before{content:'+';font:14px monospace;color:var(--accent)}
+#missions .observations[open]>summary::before{content:'−'}
+#missions .observations>summary span{margin-left:auto;color:var(--muted);font-size:9px}
+#missions .sensor-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:5px 0 7px}
+#missions .sensor-grid figcaption{font-size:8px;padding:4px;line-height:1.2;min-height:29px}
+#missions .sensor-grid .expand{font-size:13px}
+#missions .comparison-footer{border-top:1px solid var(--line);margin-top:9px;padding:10px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:5px;flex-wrap:wrap;color:var(--muted);font-size:9px;line-height:1.5}
+#missions .run-result{max-width:100%;font-size:9px}
+#missions .run-result summary{cursor:pointer;text-underline-offset:3px;text-decoration:underline;text-decoration-color:#becbd2}
+#missions .run-result p{margin:7px 0 0;font-size:10px;color:var(--muted)}
+#missions .run-result a{color:var(--accent);margin-right:8px}
+#missions .error-message{font-size:11px;color:#9c4027}
+#missions button:focus-visible,#missions select:focus-visible,#missions summary:focus-visible{outline:2px solid #3b7b99;outline-offset:3px}
+@media(max-width:1050px){#missions .comparison-grid{gap:9px}#missions .comparison-header{padding:12px 10px}#missions .comparison-header h3{font-size:17px}#missions .case-heading{font-size:9px}#missions .case-context{font-size:9px}#missions .floor-route{margin-left:0}#missions .video-area{padding:7px 7px 0}#missions .comparison-intro{display:block}#missions .comparison-intro>span{display:block;margin-top:7px}}
+@media(max-width:760px){#missions .comparison-grid{grid-template-columns:1fr;gap:16px}#missions .comparison-axes{grid-template-columns:1fr;gap:8px}#missions .comparison-axis{padding:12px}#missions .comparison-header{padding:13px 14px}#missions .comparison-header h3{font-size:20px}#missions .case-heading{font-size:11px}#missions .case-context{font-size:11px}#missions .floor-route{margin-left:auto;font-size:11px}#missions .video-area{padding:10px 10px 0}#missions .comparison-footer{font-size:10px}#missions .run-result{font-size:10px}#missions .sensor-grid figcaption{font-size:10px}#missions .comparison-intro p{font-size:14px}}
+
+/* Cards end at the optional sensor views. */
+#missions .comparison-card .video-area{padding-bottom:10px}

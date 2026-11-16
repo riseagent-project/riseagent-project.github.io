@@ -1,0 +1,818 @@
+{
+  "schema_version": 1,
+  "runnable": false,
+  "specification": "experiment-plan.json",
+  "episode_count": 45,
+  "episodes": [
+    {
+      "id": "door-A-seed0-repeat1",
+      "group": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 0,
+      "repeat": 1,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-A-seed0-repeat2",
+      "group": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 0,
+      "repeat": 2,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-A-seed0-repeat3",
+      "group": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 0,
+      "repeat": 3,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-A-seed1-repeat1",
+      "group": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 1,
+      "repeat": 1,
+      "proposed_spawn_ground_xyz_m": [
+        6.7,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-A-seed1-repeat2",
+      "group": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 1,
+      "repeat": 2,
+      "proposed_spawn_ground_xyz_m": [
+        6.7,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-A-seed1-repeat3",
+      "group": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 1,
+      "repeat": 3,
+      "proposed_spawn_ground_xyz_m": [
+        6.7,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-A-seed2-repeat1",
+      "group": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 2,
+      "repeat": 1,
+      "proposed_spawn_ground_xyz_m": [
+        6.9,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-A-seed2-repeat2",
+      "group": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 2,
+      "repeat": 2,
+      "proposed_spawn_ground_xyz_m": [
+        6.9,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-A-seed2-repeat3",
+      "group": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 2,
+      "repeat": 3,
+      "proposed_spawn_ground_xyz_m": [
+        6.9,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-A-seed3-repeat1",
+      "group": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 3,
+      "repeat": 1,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.65,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -95,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-A-seed3-repeat2",
+      "group": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 3,
+      "repeat": 2,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.65,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -95,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-A-seed3-repeat3",
+      "group": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 3,
+      "repeat": 3,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.65,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -95,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-A-seed4-repeat1",
+      "group": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 4,
+      "repeat": 1,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.65,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -85,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-A-seed4-repeat2",
+      "group": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 4,
+      "repeat": 2,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.65,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -85,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-A-seed4-repeat3",
+      "group": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 4,
+      "repeat": 3,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.65,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -85,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-B-seed0-repeat1",
+      "group": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 0,
+      "repeat": 1,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-B-seed0-repeat2",
+      "group": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 0,
+      "repeat": 2,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-B-seed0-repeat3",
+      "group": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 0,
+      "repeat": 3,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-B-seed1-repeat1",
+      "group": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 1,
+      "repeat": 1,
+      "proposed_spawn_ground_xyz_m": [
+        6.7,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-B-seed1-repeat2",
+      "group": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 1,
+      "repeat": 2,
+      "proposed_spawn_ground_xyz_m": [
+        6.7,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-B-seed1-repeat3",
+      "group": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 1,
+      "repeat": 3,
+      "proposed_spawn_ground_xyz_m": [
+        6.7,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-B-seed2-repeat1",
+      "group": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 2,
+      "repeat": 1,
+      "proposed_spawn_ground_xyz_m": [
+        6.9,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-B-seed2-repeat2",
+      "group": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 2,
+      "repeat": 2,
+      "proposed_spawn_ground_xyz_m": [
+        6.9,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-B-seed2-repeat3",
+      "group": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 2,
+      "repeat": 3,
+      "proposed_spawn_ground_xyz_m": [
+        6.9,
+        5.5,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-B-seed3-repeat1",
+      "group": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 3,
+      "repeat": 1,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.65,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -95,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-B-seed3-repeat2",
+      "group": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 3,
+      "repeat": 2,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.65,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -95,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-B-seed3-repeat3",
+      "group": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 3,
+      "repeat": 3,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.65,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -95,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-B-seed4-repeat1",
+      "group": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 4,
+      "repeat": 1,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.65,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -85,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-B-seed4-repeat2",
+      "group": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 4,
+      "repeat": 2,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.65,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -85,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-B-seed4-repeat3",
+      "group": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "action": "push",
+      "seed": 4,
+      "repeat": 3,
+      "proposed_spawn_ground_xyz_m": [
+        6.8,
+        5.65,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -85,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-C-seed0-repeat1",
+      "group": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "action": "pull",
+      "seed": 0,
+      "repeat": 1,
+      "proposed_spawn_ground_xyz_m": [
+        16.7,
+        11.6,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-C-seed0-repeat2",
+      "group": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "action": "pull",
+      "seed": 0,
+      "repeat": 2,
+      "proposed_spawn_ground_xyz_m": [
+        16.7,
+        11.6,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-C-seed0-repeat3",
+      "group": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "action": "pull",
+      "seed": 0,
+      "repeat": 3,
+      "proposed_spawn_ground_xyz_m": [
+        16.7,
+        11.6,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-C-seed1-repeat1",
+      "group": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "action": "pull",
+      "seed": 1,
+      "repeat": 1,
+      "proposed_spawn_ground_xyz_m": [
+        16.6,
+        11.6,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-C-seed1-repeat2",
+      "group": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "action": "pull",
+      "seed": 1,
+      "repeat": 2,
+      "proposed_spawn_ground_xyz_m": [
+        16.6,
+        11.6,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-C-seed1-repeat3",
+      "group": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "action": "pull",
+      "seed": 1,
+      "repeat": 3,
+      "proposed_spawn_ground_xyz_m": [
+        16.6,
+        11.6,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-C-seed2-repeat1",
+      "group": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "action": "pull",
+      "seed": 2,
+      "repeat": 1,
+      "proposed_spawn_ground_xyz_m": [
+        16.8,
+        11.6,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-C-seed2-repeat2",
+      "group": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "action": "pull",
+      "seed": 2,
+      "repeat": 2,
+      "proposed_spawn_ground_xyz_m": [
+        16.8,
+        11.6,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-C-seed2-repeat3",
+      "group": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "action": "pull",
+      "seed": 2,
+      "repeat": 3,
+      "proposed_spawn_ground_xyz_m": [
+        16.8,
+        11.6,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -90,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-C-seed3-repeat1",
+      "group": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "action": "pull",
+      "seed": 3,
+      "repeat": 1,
+      "proposed_spawn_ground_xyz_m": [
+        16.7,
+        11.75,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -95,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-C-seed3-repeat2",
+      "group": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "action": "pull",
+      "seed": 3,
+      "repeat": 2,
+      "proposed_spawn_ground_xyz_m": [
+        16.7,
+        11.75,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -95,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-C-seed3-repeat3",
+      "group": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "action": "pull",
+      "seed": 3,
+      "repeat": 3,
+      "proposed_spawn_ground_xyz_m": [
+        16.7,
+        11.75,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -95,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-C-seed4-repeat1",
+      "group": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "action": "pull",
+      "seed": 4,
+      "repeat": 1,
+      "proposed_spawn_ground_xyz_m": [
+        16.7,
+        11.75,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -85,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-C-seed4-repeat2",
+      "group": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "action": "pull",
+      "seed": 4,
+      "repeat": 2,
+      "proposed_spawn_ground_xyz_m": [
+        16.7,
+        11.75,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -85,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    },
+    {
+      "id": "door-C-seed4-repeat3",
+      "group": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "action": "pull",
+      "seed": 4,
+      "repeat": 3,
+      "proposed_spawn_ground_xyz_m": [
+        16.7,
+        11.75,
+        0
+      ],
+      "proposed_spawn_yaw_deg": -85,
+      "time_budget_sim_s": 180,
+      "status": "pending_reset_and_full_body_validation",
+      "evaluation_enabled": false
+    }
+  ]
+}

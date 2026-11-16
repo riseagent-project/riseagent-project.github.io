@@ -1,0 +1,165 @@
+{
+  "embodiment": "Unitree G1",
+  "sources": [
+    "simulation/robots/unitree_g1/sensors.py",
+    "simulation/robots/unitree_g1/camera_gimbal.py",
+    "robots/unitree_g1/tools.py"
+  ],
+  "mode": "simulation",
+  "camera": {
+    "width": 864,
+    "height": 540,
+    "vertical_fov_deg": 60,
+    "parent": "torso_link",
+    "mount_xyz_m": [
+      0.1,
+      0,
+      0.42
+    ],
+    "gimbal": {
+      "model": "virtual_kinematic_gimbal",
+      "axes": 2,
+      "frame": "torso",
+      "yaw_range_deg": [
+        -90,
+        90
+      ],
+      "pitch_range_deg": [
+        -45,
+        45
+      ],
+      "positive_yaw": "left",
+      "positive_pitch": "up",
+      "speed_range_deg_s": [
+        1,
+        90
+      ],
+      "default_speed_deg_s": 45,
+      "initial_angles_deg": [
+        0,
+        0
+      ],
+      "tool": "set_camera_pose",
+      "angle_mode": "absolute",
+      "rgb_depth_shared_pose": true,
+      "physical_actuators_added": 0,
+      "lidar_rotates_with_camera": false,
+      "geometry": "capture-time camera extrinsics and synchronized RGB-D; stale timestamps rejected",
+      "validation": {
+        "mujoco": "G1/SONIC and HTTP worker smoke tests passed",
+        "isaac": "adapter implemented; runtime validation pending"
+      }
+    }
+  },
+  "depth": {
+    "range_m": [
+      0.1,
+      10
+    ]
+  },
+  "lidar": {
+    "range_m": [
+      0.1,
+      40
+    ],
+    "azimuth_deg": [
+      -180,
+      -175,
+      -170,
+      -165,
+      -160,
+      -155,
+      -150,
+      -145,
+      -140,
+      -135,
+      -130,
+      -125,
+      -120,
+      -115,
+      -110,
+      -105,
+      -100,
+      -95,
+      -90,
+      -85,
+      -80,
+      -75,
+      -70,
+      -65,
+      -60,
+      -55,
+      -50,
+      -45,
+      -40,
+      -35,
+      -30,
+      -25,
+      -20,
+      -15,
+      -10,
+      -5,
+      0,
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35,
+      40,
+      45,
+      50,
+      55,
+      60,
+      65,
+      70,
+      75,
+      80,
+      85,
+      90,
+      95,
+      100,
+      105,
+      110,
+      115,
+      120,
+      125,
+      130,
+      135,
+      140,
+      145,
+      150,
+      155,
+      160,
+      165,
+      170,
+      175
+    ],
+    "elevation_deg": [
+      -7.0,
+      1.4285714285714288,
+      9.857142857142858,
+      18.285714285714285,
+      26.714285714285715,
+      35.142857142857146,
+      43.57142857142857,
+      52.0
+    ],
+    "parent": "torso_link",
+    "mount_xyz_m": [
+      0,
+      0,
+      0.5
+    ]
+  },
+  "channels": [
+    "camera",
+    "depth",
+    "lidar",
+    "imu",
+    "joints"
+  ],
+  "cadence": "on capture",
+  "operator_frames_excluded": true
+}

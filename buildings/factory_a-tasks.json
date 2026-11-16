@@ -1,0 +1,770 @@
+{
+  "version": 3,
+  "building": "factory_a",
+  "source_scene": "factory_a",
+  "name": "工厂",
+  "status": "design_pending_validation",
+  "categories": {
+    "cross_floor": "跨楼层通行",
+    "door_access": "门与门禁交互",
+    "facility_logic": "设施状态控制",
+    "integrated_service": "综合服务"
+  },
+  "task_groups": [
+    {
+      "id": "common",
+      "name": "通用任务",
+      "tasks": [
+        {
+          "id": "factory_a/shared_N01",
+          "title": "货梯跨层到达",
+          "instruction": "空手操作货梯，从一楼到二楼并完整驶出，保留正常门联锁和等待时间。",
+          "design_revision": 3,
+          "category": "cross_floor",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "spawn_floor != target_floor",
+            "spawn_outside_cabin",
+            "normal_interlocks"
+          ],
+          "success_requirements": [
+            "actual_target_building_and_floor",
+            "full_body_and_payload_clear_of_threshold",
+            "stable_ground_support",
+            "observed_physical_elevator_use_history"
+          ],
+          "facility_condition_variants": [
+            "normal_call_and_selection",
+            "held_button_requires_release",
+            "wrong_floor_opening_is_not_arrival",
+            "obstruction_hold_and_reopen",
+            "fully_exit_before_success"
+          ],
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        },
+        {
+          "id": "factory_a/shared_N02",
+          "title": "货梯往返与重新呼梯",
+          "instruction": "空手从一楼到二楼指定公共停靠区，再重新呼梯回一楼；终点与起点相同，仍须有两段真实乘梯记录。",
+          "design_revision": 3,
+          "category": "cross_floor",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "first_required_stop_differs_from_spawn_floor",
+            "spawn_outside_cabin",
+            "normal_interlocks",
+            "frozen_stop_or_availability_protocol"
+          ],
+          "success_requirements": [
+            "actual_target_building_and_floor",
+            "full_body_and_payload_clear_of_threshold",
+            "stable_ground_support",
+            "observed_physical_elevator_use_history",
+            "ordered_intermediate_stop_and_passage_history",
+            "return_to_start_only_after_all_required_stops"
+          ],
+          "distinguishing_mechanism": "round_trip",
+          "facility_condition_variants": [
+            "normal_call_and_selection",
+            "held_button_requires_release",
+            "wrong_floor_opening_is_not_arrival",
+            "obstruction_hold_and_reopen",
+            "fully_exit_before_success"
+          ],
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        },
+        {
+          "id": "factory_a/shared_D01",
+          "title": "维修间门通行",
+          "instruction": "以 T05 的维修间门为设施来源，打开、进入、退出并关闭，不包含取件目标。",
+          "design_revision": 3,
+          "category": "door_access",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "no_payload",
+            "door_starts_closed",
+            "permission_explicit"
+          ],
+          "success_requirements": [
+            "physical_opening",
+            "full_body_passage_history",
+            "requested_final_door_state",
+            "body_clear_of_swing_and_sensor"
+          ],
+          "explicit_logic_features": []
+        },
+        {
+          "id": "factory_a/shared_D02",
+          "title": "二楼供应间滑门通行",
+          "instruction": "以原 T06 的 G 供应间滑门为来源，滑开、进入、退出并关门；不取滤芯盒。",
+          "design_revision": 3,
+          "category": "door_access",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "no_payload",
+            "door_starts_closed",
+            "permission_explicit"
+          ],
+          "success_requirements": [
+            "physical_opening",
+            "full_body_passage_history",
+            "requested_final_door_state",
+            "body_clear_of_swing_and_sensor"
+          ],
+          "distinguishing_mechanism": "sliding_passage",
+          "blocking_dependency": "从 T06 绑定实际滑轨关节，验证把手接触、门行程与两种身体包络。",
+          "candidate_joint": "/World/Environment/Floor_2/RoomDoor/frame/door_joint",
+          "candidate_joint_exists": true,
+          "explicit_logic_features": []
+        },
+        {
+          "id": "factory_a/shared_C01",
+          "title": "工区照明设置",
+          "instruction": "按工区清单设置指定照明回路，保持其他工区状态。",
+          "design_revision": 3,
+          "category": "facility_logic",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "entry_already_open",
+            "requested_circuit_binding",
+            "at_least_one_state_change_required"
+          ],
+          "success_requirements": [
+            "physical_switch_actuation",
+            "actual_target_light_state",
+            "unrelated_circuits_unchanged"
+          ],
+          "explicit_logic_features": [
+            "lighting"
+          ]
+        },
+        {
+          "id": "factory_a/shared_C02",
+          "title": "空调面板模式与设定值控制",
+          "instruction": "在本场景指定可达空调面板上观察初态，将开关、模式和设定值改为任务要求；至少一项需改变，其他设备不变。评分使用面板与控制器实际状态，不要求室温达到设定温度。",
+          "design_revision": 3,
+          "category": "facility_logic",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "entry_already_open",
+            "bound_hvac_panel",
+            "at_least_one_requested_panel_state_differs"
+          ],
+          "success_requirements": [
+            "physical_selective_button_actuation",
+            "requested_power_mode_setpoint",
+            "unrelated_devices_unchanged"
+          ],
+          "blocking_dependency": "需验证两种夹爪不误触相邻按键，并接入模式、开关和设定值裁判；不把按钮几何存在当作可按或热效果证据。",
+          "candidate_panel": "climate_F1",
+          "explicit_logic_features": [
+            "hvac"
+          ]
+        },
+        {
+          "id": "factory_a/shared_S01",
+          "title": "一楼装配工位补料",
+          "instruction": "把 C01 的指定橙色连接件盒送到一楼 E01 装配工位，拒绝相邻 E02。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 A 收发、B 物料、C 连接件、D 维修、E 装配；二楼 F 检验交接、G 供应间及其他交付区；货梯连接生产与检验物流。",
+          "native_station_bindings": {
+            "C01": {
+              "floor": 1,
+              "position": [
+                7.5,
+                14,
+                0.74
+              ],
+              "delivery_min": [
+                7.32,
+                13.9,
+                0.73
+              ],
+              "delivery_max": [
+                7.68,
+                14.2,
+                0.76
+              ]
+            },
+            "E01": {
+              "floor": 1,
+              "position": [
+                16,
+                4,
+                0.74
+              ],
+              "delivery_min": [
+                15.82,
+                3.9,
+                0.73
+              ],
+              "delivery_max": [
+                16.18,
+                4.2,
+                0.76
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "factory_a/shared_S02",
+          "title": "生产样件上楼检验",
+          "instruction": "把一楼 E02 的小型样件经货梯送到二楼 F01 检验交接台，允许面板交互前暂放。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 A 收发、B 物料、C 连接件、D 维修、E 装配；二楼 F 检验交接、G 供应间及其他交付区；货梯连接生产与检验物流。",
+          "native_station_bindings": {
+            "E02": {
+              "floor": 1,
+              "position": [
+                21,
+                4,
+                0.74
+              ],
+              "delivery_min": [
+                20.82,
+                3.9,
+                0.73
+              ],
+              "delivery_max": [
+                21.18,
+                4.2,
+                0.76
+              ]
+            },
+            "F01": {
+              "floor": 2,
+              "position": [
+                3,
+                13,
+                4.34
+              ],
+              "delivery_min": [
+                2.82,
+                12.9,
+                4.33
+              ],
+              "delivery_max": [
+                3.18,
+                13.2,
+                4.36
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "factory_a/shared_S03",
+          "title": "巡检后跨层补料",
+          "instruction": "读取一楼 E01 与二楼 F01 可见库存，仅向不足阈值的工位从 B01 和 C01 补对应小物料盒。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 A 收发、B 物料、C 连接件、D 维修、E 装配；二楼 F 检验交接、G 供应间及其他交付区；货梯连接生产与检验物流。",
+          "native_station_bindings": {
+            "E01": {
+              "floor": 1,
+              "position": [
+                16,
+                4,
+                0.74
+              ],
+              "delivery_min": [
+                15.82,
+                3.9,
+                0.73
+              ],
+              "delivery_max": [
+                16.18,
+                4.2,
+                0.76
+              ]
+            },
+            "F01": {
+              "floor": 2,
+              "position": [
+                3,
+                13,
+                4.34
+              ],
+              "delivery_min": [
+                2.82,
+                12.9,
+                4.33
+              ],
+              "delivery_max": [
+                3.18,
+                13.2,
+                4.36
+              ]
+            },
+            "B01": {
+              "floor": 1,
+              "position": [
+                2.5,
+                14,
+                0.74
+              ],
+              "delivery_min": [
+                2.32,
+                13.9,
+                0.73
+              ],
+              "delivery_max": [
+                2.68,
+                14.2,
+                0.76
+              ]
+            },
+            "C01": {
+              "floor": 1,
+              "position": [
+                7.5,
+                14,
+                0.74
+              ],
+              "delivery_min": [
+                7.32,
+                13.9,
+                0.73
+              ],
+              "delivery_max": [
+                7.68,
+                14.2,
+                0.76
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "factory_a/shared_S04",
+          "title": "检验量具回到收发区",
+          "instruction": "从二楼 F02 取编号正确的轻型量具盒，经货梯送到一楼 A02 回收区，避免与 A01 入库区混淆。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 A 收发、B 物料、C 连接件、D 维修、E 装配；二楼 F 检验交接、G 供应间及其他交付区；货梯连接生产与检验物流。",
+          "native_station_bindings": {
+            "F02": {
+              "floor": 2,
+              "position": [
+                7,
+                13,
+                4.34
+              ],
+              "delivery_min": [
+                6.82,
+                12.9,
+                4.33
+              ],
+              "delivery_max": [
+                7.18,
+                13.2,
+                4.36
+              ]
+            },
+            "A02": {
+              "floor": 1,
+              "position": [
+                7,
+                4,
+                0.74
+              ],
+              "delivery_min": [
+                6.82,
+                3.9,
+                0.73
+              ],
+              "delivery_max": [
+                7.18,
+                4.2,
+                0.76
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "factory_a/shared_S05",
+          "title": "供应间滤芯与工位恢复",
+          "instruction": "滑开二楼 G 供应间门取可共同抓取的滤芯盒，暂放并关门，送到二楼 F01 检验台，再按任务要求恢复该层照明。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 A 收发、B 物料、C 连接件、D 维修、E 装配；二楼 F 检验交接、G 供应间及其他交付区；货梯连接生产与检验物流。",
+          "native_station_bindings": {
+            "G01": {
+              "floor": 2,
+              "position": [
+                17,
+                14,
+                4.34
+              ],
+              "delivery_min": [
+                16.82,
+                13.9,
+                4.33
+              ],
+              "delivery_max": [
+                17.18,
+                14.2,
+                4.36
+              ]
+            },
+            "F01": {
+              "floor": 2,
+              "position": [
+                3,
+                13,
+                4.34
+              ],
+              "delivery_min": [
+                2.82,
+                12.9,
+                4.33
+              ],
+              "delivery_max": [
+                3.18,
+                13.2,
+                4.36
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": [
+            "lighting"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "specific",
+      "name": "专用任务",
+      "tasks": []
+    }
+  ]
+}

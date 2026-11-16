@@ -1,0 +1,1070 @@
+{
+  "version": 3,
+  "building": "hospital_a",
+  "source_scene": "hospital_a",
+  "name": "医院",
+  "status": "design_pending_validation",
+  "categories": {
+    "cross_floor": "跨楼层通行",
+    "door_access": "门与门禁交互",
+    "facility_logic": "设施状态控制",
+    "integrated_service": "综合服务"
+  },
+  "task_groups": [
+    {
+      "id": "common",
+      "name": "通用任务",
+      "tasks": [
+        {
+          "id": "hospital_a/shared_N01",
+          "title": "住院楼跨层到达",
+          "instruction": "在住院楼原生楼层内从一楼到三楼，完整驶出电梯；明确楼栋身份，不混用门诊楼同号楼层。",
+          "design_revision": 3,
+          "category": "cross_floor",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "spawn_floor != target_floor",
+            "spawn_outside_cabin",
+            "normal_interlocks"
+          ],
+          "success_requirements": [
+            "actual_target_building_and_floor",
+            "full_body_and_payload_clear_of_threshold",
+            "stable_ground_support",
+            "observed_physical_elevator_use_history"
+          ],
+          "facility_condition_variants": [
+            "normal_call_and_selection",
+            "held_button_requires_release",
+            "wrong_floor_opening_is_not_arrival",
+            "obstruction_hold_and_reopen",
+            "fully_exit_before_success"
+          ],
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        },
+        {
+          "id": "hospital_a/shared_N02",
+          "title": "病区电梯停运改乘",
+          "instruction": "在住院楼识别一部不可用电梯，选择可用梯到指定病区公共层；不进入病房、不配送物资。",
+          "design_revision": 3,
+          "category": "cross_floor",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "first_required_stop_differs_from_spawn_floor",
+            "spawn_outside_cabin",
+            "normal_interlocks",
+            "frozen_stop_or_availability_protocol"
+          ],
+          "success_requirements": [
+            "actual_target_building_and_floor",
+            "full_body_and_payload_clear_of_threshold",
+            "stable_ground_support",
+            "observed_physical_elevator_use_history",
+            "availability_event_and_chosen_lift_history"
+          ],
+          "distinguishing_mechanism": "alternate_lift",
+          "blocking_dependency": "需绑定可复现停运或恢复初态、可见提示、可行时间预算和通行历史裁判；恢复不得依赖无限等待或策略可调用的调试接口。",
+          "facility_condition_variants": [
+            "normal_call_and_selection",
+            "held_button_requires_release",
+            "wrong_floor_opening_is_not_arrival",
+            "obstruction_hold_and_reopen",
+            "fully_exit_before_success"
+          ],
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        },
+        {
+          "id": "hospital_a/shared_D01",
+          "title": "自动入口门通行",
+          "instruction": "接近入口使感应门开启，确认开口后完整通过，并离开感应区让门恢复；分别绑定两种本体。",
+          "design_revision": 3,
+          "category": "door_access",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "no_payload",
+            "door_starts_closed",
+            "permission_explicit"
+          ],
+          "success_requirements": [
+            "physical_opening",
+            "full_body_passage_history",
+            "requested_final_door_state",
+            "body_clear_of_swing_and_sensor"
+          ],
+          "explicit_logic_features": [
+            "automatic_door"
+          ]
+        },
+        {
+          "id": "hospital_a/shared_D02",
+          "title": "后勤用品柜手动门开合",
+          "instruction": "在一楼 Admissions Handover 的用品柜上抓持把手拉开铰链门，再关门；与自动入口门分别测试。",
+          "design_revision": 3,
+          "category": "door_access",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "no_payload",
+            "door_starts_closed",
+            "permission_explicit"
+          ],
+          "success_requirements": [
+            "physical_hinged_opening",
+            "opening_then_closing_history",
+            "final_closed_joint",
+            "no_payload_goal"
+          ],
+          "distinguishing_mechanism": "container_hinged",
+          "blocking_dependency": "已安装真实铰链柜门与把手；两种夹爪完整开合轨迹待验收。",
+          "candidate_joint": "/World/Environment/Floor_1/TaskFacilities/HingedCabinet/frame/door_joint",
+          "candidate_joint_exists": true,
+          "explicit_logic_features": []
+        },
+        {
+          "id": "hospital_a/shared_C01",
+          "title": "接待区域照明设置",
+          "instruction": "按设施清单设置接待区域照明，门保持开放，不包含医疗设备操作。",
+          "design_revision": 3,
+          "category": "facility_logic",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "entry_already_open",
+            "requested_circuit_binding",
+            "at_least_one_state_change_required"
+          ],
+          "success_requirements": [
+            "physical_switch_actuation",
+            "actual_target_light_state",
+            "unrelated_circuits_unchanged"
+          ],
+          "explicit_logic_features": [
+            "lighting"
+          ]
+        },
+        {
+          "id": "hospital_a/shared_C02",
+          "title": "空调面板模式与设定值控制",
+          "instruction": "在本场景指定可达空调面板上观察初态，将开关、模式和设定值改为任务要求；至少一项需改变，其他设备不变。评分使用面板与控制器实际状态，不要求室温达到设定温度。",
+          "design_revision": 3,
+          "category": "facility_logic",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "entry_already_open",
+            "bound_hvac_panel",
+            "at_least_one_requested_panel_state_differs"
+          ],
+          "success_requirements": [
+            "physical_selective_button_actuation",
+            "requested_power_mode_setpoint",
+            "unrelated_devices_unchanged"
+          ],
+          "blocking_dependency": "需验证两种夹爪不误触相邻按键，并接入模式、开关和设定值裁判；不把按钮几何存在当作可按或热效果证据。",
+          "candidate_panel": "climate_F1",
+          "explicit_logic_features": [
+            "hvac"
+          ]
+        },
+        {
+          "id": "hospital_a/shared_S01",
+          "title": "内外科非医疗物资分发",
+          "instruction": "从一楼 Admissions Handover 取两件非医疗密封用品，分别送到住院楼二楼内科和三楼外科护士交接点。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "住院楼一楼接待，二楼内科、三楼外科、四楼心内科、十五楼康复交接；门诊楼二楼专科接待、四楼检验、五楼康复等。两楼同号层须带楼栋与站点身份。",
+          "native_station_bindings": {
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "Admissions Handover",
+              "floor": 1,
+              "position": [
+                17,
+                3.3,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                17.0,
+                2.4
+              ],
+              "door_id": null,
+              "delivery_min": [
+                16.76,
+                3.0599999999999996,
+                0.745
+              ],
+              "delivery_max": [
+                17.24,
+                3.54,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            },
+            "F2_SERVICE": {
+              "id": "F2_SERVICE",
+              "label": "GENERAL MEDICINE Nurse Handover",
+              "floor": 2,
+              "position": [
+                17,
+                3.3,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                17.0,
+                2.4
+              ],
+              "door_id": null,
+              "delivery_min": [
+                16.76,
+                3.0599999999999996,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                17.24,
+                3.54,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "2F"
+            },
+            "F3_SERVICE": {
+              "id": "F3_SERVICE",
+              "label": "SURGERY Nurse Handover",
+              "floor": 3,
+              "position": [
+                17,
+                3.3,
+                7.955
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                17.0,
+                2.4
+              ],
+              "door_id": null,
+              "delivery_min": [
+                16.76,
+                3.0599999999999996,
+                7.945
+              ],
+              "delivery_max": [
+                17.24,
+                3.54,
+                8.145
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "3F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "hospital_a/shared_S02",
+          "title": "康复层编号小件回收",
+          "instruction": "在住院楼十五楼康复交接点识别指定编号的轻型非临床代理件，送回一楼服务点。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "住院楼一楼接待，二楼内科、三楼外科、四楼心内科、十五楼康复交接；门诊楼二楼专科接待、四楼检验、五楼康复等。两楼同号层须带楼栋与站点身份。",
+          "native_station_bindings": {
+            "F15_SERVICE": {
+              "id": "F15_SERVICE",
+              "label": "RECOVERY Nurse Handover",
+              "floor": 15,
+              "position": [
+                17,
+                3.3,
+                51.155
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                17.0,
+                2.4
+              ],
+              "door_id": null,
+              "delivery_min": [
+                16.76,
+                3.0599999999999996,
+                51.145
+              ],
+              "delivery_max": [
+                17.24,
+                3.54,
+                51.345
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "15F"
+            },
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "Admissions Handover",
+              "floor": 1,
+              "position": [
+                17,
+                3.3,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                17.0,
+                2.4
+              ],
+              "door_id": null,
+              "delivery_min": [
+                16.76,
+                3.0599999999999996,
+                0.745
+              ],
+              "delivery_max": [
+                17.24,
+                3.54,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "hospital_a/shared_S03",
+          "title": "病区优先级配送",
+          "instruction": "从一楼取两件用品，按任务开始时可见优先级送往住院楼四楼心内科和十五楼康复交接点；记录实际交付顺序。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "住院楼一楼接待，二楼内科、三楼外科、四楼心内科、十五楼康复交接；门诊楼二楼专科接待、四楼检验、五楼康复等。两楼同号层须带楼栋与站点身份。",
+          "native_station_bindings": {
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "Admissions Handover",
+              "floor": 1,
+              "position": [
+                17,
+                3.3,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                17.0,
+                2.4
+              ],
+              "door_id": null,
+              "delivery_min": [
+                16.76,
+                3.0599999999999996,
+                0.745
+              ],
+              "delivery_max": [
+                17.24,
+                3.54,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            },
+            "F4_SERVICE": {
+              "id": "F4_SERVICE",
+              "label": "CARDIOLOGY Nurse Handover",
+              "floor": 4,
+              "position": [
+                17,
+                3.3,
+                11.555000000000001
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                17.0,
+                2.4
+              ],
+              "door_id": null,
+              "delivery_min": [
+                16.76,
+                3.0599999999999996,
+                11.545000000000002
+              ],
+              "delivery_max": [
+                17.24,
+                3.54,
+                11.745000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "4F"
+            },
+            "F15_SERVICE": {
+              "id": "F15_SERVICE",
+              "label": "RECOVERY Nurse Handover",
+              "floor": 15,
+              "position": [
+                17,
+                3.3,
+                51.155
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                17.0,
+                2.4
+              ],
+              "door_id": null,
+              "delivery_min": [
+                16.76,
+                3.0599999999999996,
+                51.145
+              ],
+              "delivery_max": [
+                17.24,
+                3.54,
+                51.345
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "15F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "hospital_a/shared_S04",
+          "title": "门诊科室标签分发",
+          "instruction": "将非医疗用品从门诊一楼 Registration Assistance 分发到二楼儿科接待和四楼检验接待；先验证两楼连接与可达路线。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "住院楼一楼接待，二楼内科、三楼外科、四楼心内科、十五楼康复交接；门诊楼二楼专科接待、四楼检验、五楼康复等。两楼同号层须带楼栋与站点身份。",
+          "native_station_bindings": {
+            "F1_OP02": {
+              "id": "F1_OP02",
+              "label": "Registration Assistance",
+              "floor": 1,
+              "position": [
+                60,
+                2.5,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                60.0,
+                1.6
+              ],
+              "door_id": null,
+              "delivery_min": [
+                59.76,
+                2.26,
+                0.745
+              ],
+              "delivery_max": [
+                60.24,
+                2.74,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            },
+            "F2_OP03": {
+              "id": "F2_OP03",
+              "label": "PAEDIATRIC CLINIC Reception",
+              "floor": 2,
+              "position": [
+                58.0,
+                16.0,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                58.0,
+                15.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                57.76,
+                15.76,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                58.24,
+                16.24,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "2F"
+            },
+            "F4_OP02": {
+              "id": "F4_OP02",
+              "label": "CLINICAL LABORATORY Reception",
+              "floor": 4,
+              "position": [
+                72.5,
+                4.5,
+                11.555000000000001
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                72.5,
+                3.6
+              ],
+              "door_id": null,
+              "delivery_min": [
+                72.26,
+                4.26,
+                11.545000000000002
+              ],
+              "delivery_max": [
+                72.74,
+                4.74,
+                11.745000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "4F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "hospital_a/shared_S05",
+          "title": "康复服务包装件回收",
+          "instruction": "在门诊五楼康复接待点回收指定非医疗包装件，送到一楼 Registration Assistance 的回收区；隔离其他用品。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "住院楼一楼接待，二楼内科、三楼外科、四楼心内科、十五楼康复交接；门诊楼二楼专科接待、四楼检验、五楼康复等。两楼同号层须带楼栋与站点身份。",
+          "native_station_bindings": {
+            "F5_OP03": {
+              "id": "F5_OP03",
+              "label": "REHABILITATION Reception",
+              "floor": 5,
+              "position": [
+                58.0,
+                16.0,
+                15.155000000000001
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                58.0,
+                15.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                57.76,
+                15.76,
+                15.145000000000001
+              ],
+              "delivery_max": [
+                58.24,
+                16.24,
+                15.345
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "5F"
+            },
+            "F1_OP02": {
+              "id": "F1_OP02",
+              "label": "Registration Assistance",
+              "floor": 1,
+              "position": [
+                60,
+                2.5,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                60.0,
+                1.6
+              ],
+              "door_id": null,
+              "delivery_min": [
+                59.76,
+                2.26,
+                0.745
+              ],
+              "delivery_max": [
+                60.24,
+                2.74,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "hospital_a/shared_S06",
+          "title": "入口通行与病区交接",
+          "instruction": "携一楼 Admissions Handover 的非医疗用品完成一次指定自动入口通行，再经电梯送到二楼内科交接点；入口路径与暂放面须共同可达。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "住院楼一楼接待，二楼内科、三楼外科、四楼心内科、十五楼康复交接；门诊楼二楼专科接待、四楼检验、五楼康复等。两楼同号层须带楼栋与站点身份。",
+          "native_station_bindings": {
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "Admissions Handover",
+              "floor": 1,
+              "position": [
+                17,
+                3.3,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                17.0,
+                2.4
+              ],
+              "door_id": null,
+              "delivery_min": [
+                16.76,
+                3.0599999999999996,
+                0.745
+              ],
+              "delivery_max": [
+                17.24,
+                3.54,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            },
+            "F2_SERVICE": {
+              "id": "F2_SERVICE",
+              "label": "GENERAL MEDICINE Nurse Handover",
+              "floor": 2,
+              "position": [
+                17,
+                3.3,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                17.0,
+                2.4
+              ],
+              "door_id": null,
+              "delivery_min": [
+                16.76,
+                3.0599999999999996,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                17.24,
+                3.54,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "2F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": [
+            "automatic_door",
+            "elevator"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "specific",
+      "name": "专用任务",
+      "tasks": []
+    }
+  ]
+}

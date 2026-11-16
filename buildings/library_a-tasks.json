@@ -1,0 +1,1024 @@
+{
+  "version": 3,
+  "building": "library_a",
+  "source_scene": "library_a",
+  "name": "图书馆",
+  "status": "design_pending_validation",
+  "categories": {
+    "cross_floor": "跨楼层通行",
+    "door_access": "门与门禁交互",
+    "facility_logic": "设施状态控制",
+    "integrated_service": "综合服务"
+  },
+  "task_groups": [
+    {
+      "id": "common",
+      "name": "通用任务",
+      "tasks": [
+        {
+          "id": "library_a/shared_N01",
+          "title": "到达指定阅览层",
+          "instruction": "从一楼乘电梯到指定阅览楼层，完整驶出并核对层号。",
+          "design_revision": 3,
+          "category": "cross_floor",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "spawn_floor != target_floor",
+            "spawn_outside_cabin",
+            "normal_interlocks"
+          ],
+          "success_requirements": [
+            "actual_target_building_and_floor",
+            "full_body_and_payload_clear_of_threshold",
+            "stable_ground_support",
+            "observed_physical_elevator_use_history"
+          ],
+          "facility_condition_variants": [
+            "normal_call_and_selection",
+            "held_button_requires_release",
+            "wrong_floor_opening_is_not_arrival",
+            "obstruction_hold_and_reopen",
+            "fully_exit_before_success"
+          ],
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        },
+        {
+          "id": "library_a/shared_N02",
+          "title": "阅览层多站通行",
+          "instruction": "从一楼依次乘梯到二楼和四楼公共停靠区，再返回一楼；按指定次序完成三段跨层并记录每次完整驶出。",
+          "design_revision": 3,
+          "category": "cross_floor",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "first_required_stop_differs_from_spawn_floor",
+            "spawn_outside_cabin",
+            "normal_interlocks",
+            "frozen_stop_or_availability_protocol"
+          ],
+          "success_requirements": [
+            "actual_target_building_and_floor",
+            "full_body_and_payload_clear_of_threshold",
+            "stable_ground_support",
+            "observed_physical_elevator_use_history",
+            "ordered_intermediate_stop_and_passage_history",
+            "return_to_start_only_after_all_required_stops"
+          ],
+          "distinguishing_mechanism": "ordered_stops",
+          "facility_condition_variants": [
+            "normal_call_and_selection",
+            "held_button_requires_release",
+            "wrong_floor_opening_is_not_arrival",
+            "obstruction_hold_and_reopen",
+            "fully_exit_before_success"
+          ],
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        },
+        {
+          "id": "library_a/shared_D01",
+          "title": "馆藏柜铰链门开合",
+          "instruction": "在一楼 Service Handover 台新增铰链柜上抓持把手拉开门，再关门；不取书，不要求机器人进入柜内。",
+          "design_revision": 3,
+          "category": "door_access",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "no_payload",
+            "door_starts_closed",
+            "permission_explicit"
+          ],
+          "success_requirements": [
+            "physical_hinged_opening",
+            "opening_then_closing_history",
+            "final_closed_joint",
+            "no_payload_goal"
+          ],
+          "blocking_dependency": "已补建铰链柜门；源关节、刚体与碰撞存在，双夹爪完整轨迹及裁判仍待验收。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "library_a/shared_D02",
+          "title": "馆藏柜滑门开合",
+          "instruction": "滑开一楼 Service Handover 台的馆藏柜门至可取书开口，再恢复关闭；不抓书，不要求身体进入。",
+          "design_revision": 3,
+          "category": "door_access",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "no_payload",
+            "door_starts_closed",
+            "permission_explicit"
+          ],
+          "success_requirements": [
+            "physical_sliding_opening",
+            "opening_then_closing_history",
+            "final_closed_joint",
+            "no_payload_goal"
+          ],
+          "distinguishing_mechanism": "container_sliding",
+          "blocking_dependency": "已安装独立滑门柜；与 D01 铰链柜门分别绑定、分别验证。",
+          "candidate_joint": "/World/Environment/Floor_1/TaskFacilities/SlidingCabinet/frame/door_joint",
+          "candidate_joint_exists": true,
+          "explicit_logic_features": []
+        },
+        {
+          "id": "library_a/shared_C01",
+          "title": "阅览公共区照明复位",
+          "instruction": "按开放或闭馆请求设置指定公共照明回路，其他回路不变。",
+          "design_revision": 3,
+          "category": "facility_logic",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "entry_already_open",
+            "requested_circuit_binding",
+            "at_least_one_state_change_required"
+          ],
+          "success_requirements": [
+            "physical_switch_actuation",
+            "actual_target_light_state",
+            "unrelated_circuits_unchanged"
+          ],
+          "explicit_logic_features": [
+            "lighting"
+          ]
+        },
+        {
+          "id": "library_a/shared_C02",
+          "title": "空调面板模式与设定值控制",
+          "instruction": "在本场景指定可达空调面板上观察初态，将开关、模式和设定值改为任务要求；至少一项需改变，其他设备不变。评分使用面板与控制器实际状态，不要求室温达到设定温度。",
+          "design_revision": 3,
+          "category": "facility_logic",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "entry_already_open",
+            "bound_hvac_panel",
+            "at_least_one_requested_panel_state_differs"
+          ],
+          "success_requirements": [
+            "physical_selective_button_actuation",
+            "requested_power_mode_setpoint",
+            "unrelated_devices_unchanged"
+          ],
+          "blocking_dependency": "需验证两种夹爪不误触相邻按键，并接入模式、开关和设定值裁判；不把按钮几何存在当作可按或热效果证据。",
+          "candidate_panel": "climate_F1",
+          "explicit_logic_features": [
+            "hvac"
+          ]
+        },
+        {
+          "id": "library_a/shared_S01",
+          "title": "按封面描述取书",
+          "instruction": "从二楼 Collection 1 的独立动态任务书中识别目标，送到四楼 Study Desk 1；保留两侧夹指空间。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 Service Handover、Returns Sorting、Children Reading；二至四楼 Collection 与 Study Desk。上层按已有馆藏标签识别，不臆造各层独占学科。",
+          "native_station_bindings": {
+            "F2_R01": {
+              "id": "F2_R01",
+              "label": "Collection 1",
+              "floor": 2,
+              "position": [
+                6,
+                4.8,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                6.0,
+                3.9
+              ],
+              "door_id": null,
+              "delivery_min": [
+                5.76,
+                4.56,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                6.24,
+                5.04,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F4_R03": {
+              "id": "F4_R03",
+              "label": "4F Study Desk 1",
+              "floor": 4,
+              "position": [
+                7,
+                24,
+                11.555000000000001
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                7.0,
+                23.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                6.76,
+                23.76,
+                11.545000000000002
+              ],
+              "delivery_max": [
+                7.24,
+                24.24,
+                11.745000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "library_a/shared_S02",
+          "title": "一楼还书分类",
+          "instruction": "从一楼 Service Handover 逐本取三本任务书，按可见分类放入一楼 Returns Sorting 的绑定区域，模糊标签单独复核。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 Service Handover、Returns Sorting、Children Reading；二至四楼 Collection 与 Study Desk。上层按已有馆藏标签识别，不臆造各层独占学科。",
+          "native_station_bindings": {
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "1F Service Handover",
+              "floor": 1,
+              "position": [
+                15.0,
+                3.4,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                15.0,
+                2.5
+              ],
+              "door_id": null,
+              "delivery_min": [
+                14.76,
+                3.16,
+                0.745
+              ],
+              "delivery_max": [
+                15.24,
+                3.6399999999999997,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F1_R01": {
+              "id": "F1_R01",
+              "label": "Returns Sorting",
+              "floor": 1,
+              "position": [
+                6,
+                4.8,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                6.0,
+                3.9
+              ],
+              "door_id": null,
+              "delivery_min": [
+                5.76,
+                4.56,
+                0.745
+              ],
+              "delivery_max": [
+                6.24,
+                5.04,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "library_a/shared_S03",
+          "title": "上层阅览台回收",
+          "instruction": "从二楼和四楼 Study Desk 逐本回收任务书送到一楼 Returns Sorting，再关闭清单指定的阅览区灯。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 Service Handover、Returns Sorting、Children Reading；二至四楼 Collection 与 Study Desk。上层按已有馆藏标签识别，不臆造各层独占学科。",
+          "native_station_bindings": {
+            "F2_R03": {
+              "id": "F2_R03",
+              "label": "2F Study Desk 1",
+              "floor": 2,
+              "position": [
+                7,
+                24,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                7.0,
+                23.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                6.76,
+                23.76,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                7.24,
+                24.24,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F4_R04": {
+              "id": "F4_R04",
+              "label": "4F Study Desk 2",
+              "floor": 4,
+              "position": [
+                28,
+                24,
+                11.555000000000001
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                28.0,
+                23.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                27.76,
+                23.76,
+                11.545000000000002
+              ],
+              "delivery_max": [
+                28.24,
+                24.24,
+                11.745000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F1_R01": {
+              "id": "F1_R01",
+              "label": "Returns Sorting",
+              "floor": 1,
+              "position": [
+                6,
+                4.8,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                6.0,
+                3.9
+              ],
+              "door_id": null,
+              "delivery_min": [
+                5.76,
+                4.56,
+                0.745
+              ],
+              "delivery_max": [
+                6.24,
+                5.04,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "library_a/shared_S04",
+          "title": "儿童阅览补书",
+          "instruction": "从一楼归还区选择带儿童分类标签的任务书，送到同层 Children Reading 的低位台，不抽取密排装饰书。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 Service Handover、Returns Sorting、Children Reading；二至四楼 Collection 与 Study Desk。上层按已有馆藏标签识别，不臆造各层独占学科。",
+          "native_station_bindings": {
+            "F1_R01": {
+              "id": "F1_R01",
+              "label": "Returns Sorting",
+              "floor": 1,
+              "position": [
+                6,
+                4.8,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                6.0,
+                3.9
+              ],
+              "door_id": null,
+              "delivery_min": [
+                5.76,
+                4.56,
+                0.745
+              ],
+              "delivery_max": [
+                6.24,
+                5.04,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F1_R03": {
+              "id": "F1_R03",
+              "label": "1F Children Reading",
+              "floor": 1,
+              "position": [
+                7,
+                24,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                7.0,
+                23.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                6.76,
+                23.76,
+                0.745
+              ],
+              "delivery_max": [
+                7.24,
+                24.24,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "library_a/shared_S05",
+          "title": "馆藏迁移提示找书",
+          "instruction": "在二楼 Collection 1 阅读迁移提示，转到三楼 Collection 2 找到目标任务书，再送到四楼 Study Desk 2；迁移提示和物品初态须一致。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 Service Handover、Returns Sorting、Children Reading；二至四楼 Collection 与 Study Desk。上层按已有馆藏标签识别，不臆造各层独占学科。",
+          "native_station_bindings": {
+            "F2_R01": {
+              "id": "F2_R01",
+              "label": "Collection 1",
+              "floor": 2,
+              "position": [
+                6,
+                4.8,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                6.0,
+                3.9
+              ],
+              "door_id": null,
+              "delivery_min": [
+                5.76,
+                4.56,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                6.24,
+                5.04,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F3_R02": {
+              "id": "F3_R02",
+              "label": "Collection 2",
+              "floor": 3,
+              "position": [
+                27,
+                4.8,
+                7.955
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                27.0,
+                3.9
+              ],
+              "door_id": null,
+              "delivery_min": [
+                26.76,
+                4.56,
+                7.945
+              ],
+              "delivery_max": [
+                27.24,
+                5.04,
+                8.145
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F4_R04": {
+              "id": "F4_R04",
+              "label": "4F Study Desk 2",
+              "floor": 4,
+              "position": [
+                28,
+                24,
+                11.555000000000001
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                28.0,
+                23.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                27.76,
+                23.76,
+                11.545000000000002
+              ],
+              "delivery_max": [
+                28.24,
+                24.24,
+                11.745000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "library_a/shared_S06",
+          "title": "馆藏柜取书与阅览准备",
+          "instruction": "从一楼新增铰链柜取指定动态任务书，暂放并关柜门，送到二楼 Study Desk，再开启绑定阅览区灯。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 Service Handover、Returns Sorting、Children Reading；二至四楼 Collection 与 Study Desk。上层按已有馆藏标签识别，不臆造各层独占学科。",
+          "native_station_bindings": {
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "1F Service Handover",
+              "floor": 1,
+              "position": [
+                15.0,
+                3.4,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                15.0,
+                2.5
+              ],
+              "door_id": null,
+              "delivery_min": [
+                14.76,
+                3.16,
+                0.745
+              ],
+              "delivery_max": [
+                15.24,
+                3.6399999999999997,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F2_R03": {
+              "id": "F2_R03",
+              "label": "2F Study Desk 1",
+              "floor": 2,
+              "position": [
+                7,
+                24,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                7.0,
+                23.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                6.76,
+                23.76,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                7.24,
+                24.24,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": [
+            "elevator",
+            "lighting"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "specific",
+      "name": "专用任务",
+      "tasks": []
+    }
+  ]
+}

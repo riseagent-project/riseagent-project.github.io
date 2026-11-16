@@ -1,0 +1,261 @@
+{
+  "schema_version": 1,
+  "status": "dashboard_seed0_tested_pending_scorer_calibration",
+  "evaluation_enabled": false,
+  "scope": "Three sequential Dashboard seed-0 trials; raw strict verdicts retained; not a validated success-rate benchmark.",
+  "groups": [
+    {
+      "id": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "scene_label": "Office · Meeting room MR1",
+      "source_stage": "simulation/resource/scenes/office_a/stages/lower/office_a_lower_T01.usda",
+      "source_config": "simulation/resource/scenes/office_a/configs/stages/lower/office_a_lower_T01.yaml",
+      "electrical_config": "simulation/resource/scenes/office_a/configs/stages/lower/electrical/office_a_lower_T01.yaml",
+      "door_root": "/World/Environment/Floor_1/Door_F1_MR1",
+      "door_joint": "/World/Environment/Floor_1/Door_F1_MR1/frame/door_joint",
+      "handle": "/World/Environment/Floor_1/Door_F1_MR1/leaf/TaskHandle_Outer",
+      "hinge_world_m": [
+        7.5,
+        4,
+        0
+      ],
+      "hinge_yaw_deg": 180,
+      "opening_limits_deg": [
+        0,
+        100
+      ],
+      "doorway_x_world_m": [
+        6.1,
+        7.5
+      ],
+      "door_plane_y_world_m": 4,
+      "spawn_reference": "body ground projection; body-specific base height must be applied",
+      "nominal_spawn_ground_xyz_m": [
+        6.8,
+        5.5,
+        0
+      ],
+      "spawn_yaw_deg": -90,
+      "target_side": "y < 4; entire body footprint beyond doorway",
+      "action": "push",
+      "instruction": "Open the closed meeting-room MR1 door by pushing it, then move your entire body through the doorway into the meeting room and stop clear of the door sweep. No credential is required. You do not need to close the door."
+    },
+    {
+      "id": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "scene_label": "Office · Meeting room MR1",
+      "source_stage": "simulation/resource/scenes/office_a/stages/lower/office_a_lower_T01.usda",
+      "source_config": "simulation/resource/scenes/office_a/configs/stages/lower/office_a_lower_T01.yaml",
+      "electrical_config": "simulation/resource/scenes/office_a/configs/stages/lower/electrical/office_a_lower_T01.yaml",
+      "door_root": "/World/Environment/Floor_1/Door_F1_MR1",
+      "door_joint": "/World/Environment/Floor_1/Door_F1_MR1/frame/door_joint",
+      "handle": "/World/Environment/Floor_1/Door_F1_MR1/leaf/TaskHandle_Outer",
+      "hinge_world_m": [
+        7.5,
+        4,
+        0
+      ],
+      "hinge_yaw_deg": 180,
+      "opening_limits_deg": [
+        0,
+        100
+      ],
+      "doorway_x_world_m": [
+        6.1,
+        7.5
+      ],
+      "door_plane_y_world_m": 4,
+      "spawn_reference": "body ground projection; body-specific base height must be applied",
+      "nominal_spawn_ground_xyz_m": [
+        6.8,
+        5.5,
+        0
+      ],
+      "spawn_yaw_deg": -90,
+      "target_side": "y < 4; entire body footprint beyond doorway",
+      "action": "push",
+      "instruction": "Open the closed meeting-room MR1 door by pushing it, then move your entire body through the doorway into the meeting room and stop clear of the door sweep. No credential is required. You do not need to close the door."
+    },
+    {
+      "id": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "scene_label": "Factory · Maintenance room D",
+      "source_stage": "simulation/resource/scenes/factory_a/stages/factory_A_T05.usda",
+      "source_config": "simulation/resource/scenes/factory_a/configs/stages/factory_A_T05.yaml",
+      "electrical_config": "simulation/resource/scenes/factory_a/configs/stages/electrical/factory_A_T05.yaml",
+      "door_root": "/World/Environment/Floor_1/RoomDoor",
+      "door_joint": "/World/Environment/Floor_1/RoomDoor/frame/door_joint",
+      "handle": "/World/Environment/Floor_1/RoomDoor/leaf/Handle1",
+      "hinge_world_m": [
+        16,
+        10,
+        0
+      ],
+      "hinge_yaw_deg": 0,
+      "opening_limits_deg": [
+        0,
+        105
+      ],
+      "doorway_x_world_m": [
+        16,
+        17.4
+      ],
+      "door_plane_y_world_m": 10,
+      "spawn_reference": "body ground projection; body-specific base height must be applied",
+      "nominal_spawn_ground_xyz_m": [
+        16.7,
+        11.6,
+        0
+      ],
+      "spawn_yaw_deg": -90,
+      "target_side": "y < 10; entire body footprint beyond doorway",
+      "action": "pull",
+      "instruction": "From inside maintenance room D, grasp the handle and pull the closed door toward you. Make room for its swing, then move your entire body through the doorway into the corridor and stop clear of the door sweep. No credential is required. You do not need to close the door."
+    }
+  ],
+  "comparisons": [
+    {
+      "pair": [
+        "door-A",
+        "door-B"
+      ],
+      "axis": "embodiment",
+      "controlled": [
+        "scene",
+        "door",
+        "action",
+        "seed offsets",
+        "model",
+        "engine",
+        "time budget"
+      ]
+    },
+    {
+      "pair": [
+        "door-A",
+        "door-C"
+      ],
+      "axis": "scene_and_action",
+      "limitation": "Scene, door mechanics and push/pull direction change together; this is coverage, not isolated scene generalization."
+    }
+  ],
+  "protocol": {
+    "engine": "mujoco",
+    "model": "same model snapshot and settings for all cases; freeze before runs",
+    "time_budget_sim_s": 180,
+    "stable_s": 1.5,
+    "access_control": "none",
+    "initial_door_angle_deg": 0,
+    "initial_door_velocity_deg_s": 0,
+    "initial_robot_velocity": 0,
+    "arm_initialization": "body-native stowed posture; record actual joint state",
+    "carrying": false,
+    "close_after_crossing": false,
+    "policy_privileges": "sensor observations and robot actuators only; no door-joint writes, teleportation, remote unlock or ground-truth task geometry",
+    "record_views": [
+      "third_person",
+      "front_camera",
+      "wrist_if_available",
+      "bev"
+    ],
+    "record_artifacts": [
+      "initial_state",
+      "asset_hashes",
+      "model_and_engine_versions",
+      "tool_calls",
+      "physical_telemetry",
+      "benchmark_result",
+      "video"
+    ],
+    "repetitions_per_seed": 3
+  },
+  "seeds": [
+    {
+      "id": 0,
+      "dx_m": 0,
+      "dy_m": 0,
+      "dyaw_deg": 0
+    },
+    {
+      "id": 1,
+      "dx_m": -0.1,
+      "dy_m": 0,
+      "dyaw_deg": 0
+    },
+    {
+      "id": 2,
+      "dx_m": 0.1,
+      "dy_m": 0,
+      "dyaw_deg": 0
+    },
+    {
+      "id": 3,
+      "dx_m": 0,
+      "dy_m": 0.15,
+      "dyaw_deg": -5
+    },
+    {
+      "id": 4,
+      "dx_m": 0,
+      "dy_m": 0.15,
+      "dyaw_deg": 5
+    }
+  ],
+  "seed_status": "Nominal measured-frame proposals; floor support, footprint collision and reachability must be validated before freezing.",
+  "success_contract": {
+    "required_history": [
+      "closed and stationary at reset",
+      "robot contact physically opens the door",
+      "body traverses the aperture between jambs; bypass around the room is rejected",
+      "entire body footprint reaches target side with 0.10 m plane clearance",
+      "ground support and final pose stable for 1.5 simulation seconds",
+      "agent submits success before timeout"
+    ],
+    "opening_progress_deg": 60,
+    "opening_progress_is_sufficient_for_success": false,
+    "judge_input": "trusted simulator telemetry, never agent claims",
+    "failure_reasons": [
+      "timeout",
+      "no opening",
+      "incomplete crossing",
+      "wrong side",
+      "bypass",
+      "fall",
+      "invalid reset",
+      "privileged door actuation"
+    ],
+    "metrics": [
+      "full traversal success rate",
+      "opening success rate",
+      "simulated completion time",
+      "tool calls",
+      "regrasp count",
+      "failure reason"
+    ]
+  },
+  "readiness": {
+    "assets": "Office handle overlap fixed with vertical D pulls and matched collision geometry; factory handle checked.",
+    "source_geometry": "validated by build_door_capabilities.py",
+    "runtime_adapter": "Immutable fixed episodes launched through Dashboard for FWMiniPiper and unitree_g1; isolated sensor-only policy runtime.",
+    "physical_judge": "Private fixed-episode scorer integrated. Raw results retained; 60-degree opening gate, contact sampling and instantaneous stability still require calibration.",
+    "body_clearance": "Seed 0: both office bodies reached the target side. Factory pull did not open enough to cross; randomized seeds remain unverified.",
+    "autonomous_runs": "Three sequential Dashboard seed-0 trials: A crossed at 57.53 degrees but failed the 60-degree gate; B crossed then timed out, with missing sampled door contact; C stopped stuck at max 0.39 degrees.",
+    "videos": "Actual rear-follow action recordings and source handle screenshots in outputs/diagnostics/door_capabilities/dashboard-review.html."
+  },
+  "evidence": [
+    "paper/QSTEP/design/task-facility-audit.md",
+    "simulation/resource/scenes/factory_a/configs/tasks.json",
+    "simulation/scene/logic/runtime/tests/test_task_facilities.py",
+    "simulation/scene/logic/runtime/tests/test_door_push.py"
+  ],
+  "next_steps": [
+    "Improve contact-aware pull and retreat for C; retain actual opposed-contact and effect-verification evidence.",
+    "Calibrate opening clearance, contact sampling, continuous stability and timeout enforcement before freezing a new scorer version; never overwrite these raw trial verdicts.",
+    "Validate all proposed randomized resets and freeze model/settings, then run the planned 45 episodes.",
+    "Review synchronized rear-follow videos and physical telemetry."
+  ],
+  "smoke_test_summary": "outputs/diagnostics/door_capabilities/dashboard-summary.json"
+}

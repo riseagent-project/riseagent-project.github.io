@@ -1,0 +1,32 @@
+{
+  "embodiment": "Mobile ALOHA",
+  "sources": [
+    "simulation/robots/mobile_aloha/sensors.py"
+  ],
+  "mode": "simulation",
+  "channels": [
+    "camera",
+    "wrist_left",
+    "wrist_right",
+    "depth",
+    "lidar",
+    "imu",
+    "joints"
+  ],
+  "resolution": [
+    864,
+    540
+  ],
+  "camera_mount_base_m": [
+    0.17,
+    0,
+    1.29
+  ],
+  "lidar_mount_base_m": [
+    0.12,
+    0,
+    0.2
+  ],
+  "cadence": "on capture",
+  "operator_frames_excluded": true
+}

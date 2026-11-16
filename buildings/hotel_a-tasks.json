@@ -1,0 +1,1009 @@
+{
+  "version": 3,
+  "building": "hotel_a",
+  "source_scene": "hotel_a",
+  "name": "酒店",
+  "status": "design_pending_validation",
+  "categories": {
+    "cross_floor": "跨楼层通行",
+    "door_access": "门与门禁交互",
+    "facility_logic": "设施状态控制",
+    "integrated_service": "综合服务"
+  },
+  "task_groups": [
+    {
+      "id": "common",
+      "name": "通用任务",
+      "tasks": [
+        {
+          "id": "hotel_a/shared_N01",
+          "title": "到达指定客房层",
+          "instruction": "从一楼乘电梯到指定客房层，核对楼层并完整驶出；目标层与出生层不同。",
+          "design_revision": 3,
+          "category": "cross_floor",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "spawn_floor != target_floor",
+            "spawn_outside_cabin",
+            "normal_interlocks"
+          ],
+          "success_requirements": [
+            "actual_target_building_and_floor",
+            "full_body_and_payload_clear_of_threshold",
+            "stable_ground_support",
+            "observed_physical_elevator_use_history"
+          ],
+          "facility_condition_variants": [
+            "normal_call_and_selection",
+            "held_button_requires_release",
+            "wrong_floor_opening_is_not_arrival",
+            "obstruction_hold_and_reopen",
+            "fully_exit_before_success"
+          ],
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        },
+        {
+          "id": "hotel_a/shared_N02",
+          "title": "客房层往返与重新呼梯",
+          "instruction": "空手从一楼到四楼指定公共停靠区，再重新呼梯返回一楼；两次完整进出和中间停靠必须有历史证据。",
+          "design_revision": 3,
+          "category": "cross_floor",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "first_required_stop_differs_from_spawn_floor",
+            "spawn_outside_cabin",
+            "normal_interlocks",
+            "frozen_stop_or_availability_protocol"
+          ],
+          "success_requirements": [
+            "actual_target_building_and_floor",
+            "full_body_and_payload_clear_of_threshold",
+            "stable_ground_support",
+            "observed_physical_elevator_use_history",
+            "ordered_intermediate_stop_and_passage_history",
+            "return_to_start_only_after_all_required_stops"
+          ],
+          "distinguishing_mechanism": "round_trip",
+          "facility_condition_variants": [
+            "normal_call_and_selection",
+            "held_button_requires_release",
+            "wrong_floor_opening_is_not_arrival",
+            "obstruction_hold_and_reopen",
+            "fully_exit_before_success"
+          ],
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        },
+        {
+          "id": "hotel_a/shared_D01",
+          "title": "客房门开关与通行",
+          "instruction": "用初始已授权且可物理推拉的客房门完成进入、退出和关门；基础项不要求持卡与推门同时进行。",
+          "design_revision": 3,
+          "category": "door_access",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "no_payload",
+            "door_starts_closed",
+            "permission_explicit"
+          ],
+          "success_requirements": [
+            "physical_opening",
+            "full_body_passage_history",
+            "requested_final_door_state",
+            "body_clear_of_swing_and_sensor"
+          ],
+          "initial_controller_override": {
+            "class": "HotelKeycardLogic",
+            "config": {
+              "initially_unlocked_doors": [
+                "F1_R01"
+              ]
+            }
+          },
+          "blocking_dependency": "控制器已支持显式初始授权且门关闭；仍须冻结任务配置与双本体见证。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "hotel_a/shared_D02",
+          "title": "房卡授权后顺序通行",
+          "instruction": "从可抓取卡座取正确房卡并贴近读卡器；授权后暂放房卡，再推开客房门、通过并关闭。",
+          "design_revision": 3,
+          "category": "door_access",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "no_payload",
+            "door_starts_closed",
+            "permission_explicit",
+            "door_initially_locked",
+            "authorized_credential_or_code_available"
+          ],
+          "success_requirements": [
+            "physical_opening",
+            "full_body_passage_history",
+            "requested_final_door_state",
+            "body_clear_of_swing_and_sensor",
+            "physical_authorization_before_opening",
+            "credential_or_code_identity_history"
+          ],
+          "distinguishing_mechanism": "credential_passage",
+          "blocking_dependency": "卡座、卡片夹持和暂放面须验证；解锁保持必须足够完成单臂顺序动作，否则此项阻塞，不能改成双手并发。",
+          "candidate_joint": "/World/Environment/Floor_1/Door_F1_R01/frame/door_joint",
+          "candidate_joint_exists": true,
+          "explicit_logic_features": [
+            "keycard"
+          ]
+        },
+        {
+          "id": "hotel_a/shared_C01",
+          "title": "客房照明设置",
+          "instruction": "在门已打开的客房内，将指定灯设为客人要求的开关状态，其他灯保持原状。",
+          "design_revision": 3,
+          "category": "facility_logic",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "entry_already_open",
+            "requested_circuit_binding",
+            "at_least_one_state_change_required"
+          ],
+          "success_requirements": [
+            "physical_switch_actuation",
+            "actual_target_light_state",
+            "unrelated_circuits_unchanged"
+          ],
+          "explicit_logic_features": [
+            "lighting"
+          ]
+        },
+        {
+          "id": "hotel_a/shared_C02",
+          "title": "空调面板模式与设定值控制",
+          "instruction": "在本场景指定可达空调面板上观察初态，将开关、模式和设定值改为任务要求；至少一项需改变，其他设备不变。评分使用面板与控制器实际状态，不要求室温达到设定温度。",
+          "design_revision": 3,
+          "category": "facility_logic",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "entry_already_open",
+            "bound_hvac_panel",
+            "at_least_one_requested_panel_state_differs"
+          ],
+          "success_requirements": [
+            "physical_selective_button_actuation",
+            "requested_power_mode_setpoint",
+            "unrelated_devices_unchanged"
+          ],
+          "blocking_dependency": "需验证两种夹爪不误触相邻按键，并接入模式、开关和设定值裁判；不把按钮几何存在当作可按或热效果证据。",
+          "candidate_panel": "climate_F1_F1_R01",
+          "explicit_logic_features": [
+            "hvac"
+          ]
+        },
+        {
+          "id": "hotel_a/shared_S01",
+          "title": "客房饮品交接",
+          "instruction": "把二楼 Guest Service 的密封饮品送到六楼 603 客房外侧交接台；不要求倒水或开盖。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 Reception；二至六楼 Guest Service、客房和 Housekeeping Pickup。楼层差异主要是前台、客房服务点与房号，不假设某层独占洗衣或餐饮功能。",
+          "native_station_bindings": {
+            "F2_SERVICE": {
+              "id": "F2_SERVICE",
+              "label": "2F Guest Service",
+              "floor": 2,
+              "position": [
+                7.0,
+                5.39,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                7.0,
+                4.489999999999999
+              ],
+              "door_id": null,
+              "delivery_min": [
+                6.76,
+                5.1499999999999995,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                7.24,
+                5.63,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F6_R03": {
+              "id": "F6_R03",
+              "label": "603 Delivery",
+              "floor": 6,
+              "position": [
+                10.639999999999999,
+                18.19,
+                18.755
+              ],
+              "yaw": 90,
+              "dock_xy": [
+                11.54,
+                18.19
+              ],
+              "door_id": null,
+              "delivery_min": [
+                10.399999999999999,
+                17.950000000000003,
+                18.744999999999997
+              ],
+              "delivery_max": [
+                10.879999999999999,
+                18.43,
+                18.945
+              ],
+              "support_size": [
+                0.84,
+                0.4
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "hotel_a/shared_S02",
+          "title": "双客房用品分发",
+          "instruction": "从二楼 Guest Service 将带房号标签的两件刚性包装用品分别送到 204 和 603 外侧交接台，允许多趟。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 Reception；二至六楼 Guest Service、客房和 Housekeeping Pickup。楼层差异主要是前台、客房服务点与房号，不假设某层独占洗衣或餐饮功能。",
+          "native_station_bindings": {
+            "F2_SERVICE": {
+              "id": "F2_SERVICE",
+              "label": "2F Guest Service",
+              "floor": 2,
+              "position": [
+                7.0,
+                5.39,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                7.0,
+                4.489999999999999
+              ],
+              "door_id": null,
+              "delivery_min": [
+                6.76,
+                5.1499999999999995,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                7.24,
+                5.63,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F2_R04": {
+              "id": "F2_R04",
+              "label": "204 Delivery",
+              "floor": 2,
+              "position": [
+                10.639999999999999,
+                22.64,
+                4.355
+              ],
+              "yaw": 90,
+              "dock_xy": [
+                11.54,
+                22.64
+              ],
+              "door_id": null,
+              "delivery_min": [
+                10.399999999999999,
+                22.400000000000002,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                10.879999999999999,
+                22.88,
+                4.545000000000001
+              ],
+              "support_size": [
+                0.84,
+                0.4
+              ]
+            },
+            "F6_R03": {
+              "id": "F6_R03",
+              "label": "603 Delivery",
+              "floor": 6,
+              "position": [
+                10.639999999999999,
+                18.19,
+                18.755
+              ],
+              "yaw": 90,
+              "dock_xy": [
+                11.54,
+                18.19
+              ],
+              "door_id": null,
+              "delivery_min": [
+                10.399999999999999,
+                17.950000000000003,
+                18.744999999999997
+              ],
+              "delivery_max": [
+                10.879999999999999,
+                18.43,
+                18.945
+              ],
+              "support_size": [
+                0.84,
+                0.4
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "hotel_a/shared_S03",
+          "title": "客房层失物归还",
+          "instruction": "从四楼 Guest Service 的候选小件中找出符合描述的失物，送到一楼 Reception，其他候选保持原位。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 Reception；二至六楼 Guest Service、客房和 Housekeeping Pickup。楼层差异主要是前台、客房服务点与房号，不假设某层独占洗衣或餐饮功能。",
+          "native_station_bindings": {
+            "F4_SERVICE": {
+              "id": "F4_SERVICE",
+              "label": "4F Guest Service",
+              "floor": 4,
+              "position": [
+                7.0,
+                5.39,
+                11.555000000000001
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                7.0,
+                4.489999999999999
+              ],
+              "door_id": null,
+              "delivery_min": [
+                6.76,
+                5.1499999999999995,
+                11.545000000000002
+              ],
+              "delivery_max": [
+                7.24,
+                5.63,
+                11.745000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "1F Reception",
+              "floor": 1,
+              "position": [
+                7.0,
+                5.39,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                7.0,
+                4.489999999999999
+              ],
+              "door_id": null,
+              "delivery_min": [
+                6.76,
+                5.1499999999999995,
+                0.745
+              ],
+              "delivery_max": [
+                7.24,
+                5.63,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "hotel_a/shared_S04",
+          "title": "布草包装件回收",
+          "instruction": "从六楼 Housekeeping Pickup 回收可抓取的密封待洗包装件，送到一楼 Housekeeping 交接区；不处理松散布草。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 Reception；二至六楼 Guest Service、客房和 Housekeeping Pickup。楼层差异主要是前台、客房服务点与房号，不假设某层独占洗衣或餐饮功能。",
+          "native_station_bindings": {
+            "F6_SERVICE_INSIDE": {
+              "id": "F6_SERVICE_INSIDE",
+              "label": "6F Housekeeping Pickup",
+              "floor": 6,
+              "position": [
+                15.65,
+                24.37,
+                18.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                15.65,
+                23.470000000000002
+              ],
+              "door_id": "F6_R08",
+              "delivery_min": [
+                15.41,
+                24.130000000000003,
+                18.744999999999997
+              ],
+              "delivery_max": [
+                15.89,
+                24.61,
+                18.945
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F1_R08": {
+              "id": "F1_R08",
+              "label": "HOUSEKEEPING Delivery",
+              "floor": 1,
+              "position": [
+                13.360000000000001,
+                22.64,
+                0.755
+              ],
+              "yaw": -90,
+              "dock_xy": [
+                12.46,
+                22.64
+              ],
+              "door_id": null,
+              "delivery_min": [
+                13.120000000000001,
+                22.400000000000002,
+                0.745
+              ],
+              "delivery_max": [
+                13.600000000000001,
+                22.88,
+                0.9450000000000001
+              ],
+              "support_size": [
+                0.84,
+                0.4
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "hotel_a/shared_S05",
+          "title": "客房用品与环境准备",
+          "instruction": "将二楼 Guest Service 的一件用品送到二楼 204 外侧交接台，再在已授权且门开放的 204 内设置灯和空调面板；不要求温度实际达到设定值。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 Reception；二至六楼 Guest Service、客房和 Housekeeping Pickup。楼层差异主要是前台、客房服务点与房号，不假设某层独占洗衣或餐饮功能。",
+          "native_station_bindings": {
+            "F2_SERVICE": {
+              "id": "F2_SERVICE",
+              "label": "2F Guest Service",
+              "floor": 2,
+              "position": [
+                7.0,
+                5.39,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                7.0,
+                4.489999999999999
+              ],
+              "door_id": null,
+              "delivery_min": [
+                6.76,
+                5.1499999999999995,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                7.24,
+                5.63,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F2_R04": {
+              "id": "F2_R04",
+              "label": "204 Delivery",
+              "floor": 2,
+              "position": [
+                10.639999999999999,
+                22.64,
+                4.355
+              ],
+              "yaw": 90,
+              "dock_xy": [
+                11.54,
+                22.64
+              ],
+              "door_id": null,
+              "delivery_min": [
+                10.399999999999999,
+                22.400000000000002,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                10.879999999999999,
+                22.88,
+                4.545000000000001
+              ],
+              "support_size": [
+                0.84,
+                0.4
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "hotel_a/shared_S06",
+          "title": "房卡授权客房服务",
+          "instruction": "从二楼 Guest Service 获取用品和授权卡，顺序完成贴卡、暂放、开门，把用品放到 204 的绑定室内支撑面，设置灯和空调后关门；必须支持单臂分步操作。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼 Reception；二至六楼 Guest Service、客房和 Housekeeping Pickup。楼层差异主要是前台、客房服务点与房号，不假设某层独占洗衣或餐饮功能。",
+          "native_station_bindings": {
+            "F2_SERVICE": {
+              "id": "F2_SERVICE",
+              "label": "2F Guest Service",
+              "floor": 2,
+              "position": [
+                7.0,
+                5.39,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                7.0,
+                4.489999999999999
+              ],
+              "door_id": null,
+              "delivery_min": [
+                6.76,
+                5.1499999999999995,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                7.24,
+                5.63,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F2_R04": {
+              "id": "F2_R04",
+              "label": "204 Delivery",
+              "floor": 2,
+              "position": [
+                10.639999999999999,
+                22.64,
+                4.355
+              ],
+              "yaw": 90,
+              "dock_xy": [
+                11.54,
+                22.64
+              ],
+              "door_id": null,
+              "delivery_min": [
+                10.399999999999999,
+                22.400000000000002,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                10.879999999999999,
+                22.88,
+                4.545000000000001
+              ],
+              "support_size": [
+                0.84,
+                0.4
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": [
+            "keycard",
+            "lighting",
+            "hvac"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "specific",
+      "name": "专用任务",
+      "tasks": []
+    }
+  ]
+}

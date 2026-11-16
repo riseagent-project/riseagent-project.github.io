@@ -1,0 +1,1213 @@
+{
+  "version": 3,
+  "building": "serviced_apartment_a",
+  "source_scene": "serviced_apartment_a",
+  "name": "服务式公寓",
+  "status": "design_pending_validation",
+  "categories": {
+    "cross_floor": "跨楼层通行",
+    "door_access": "门与门禁交互",
+    "facility_logic": "设施状态控制",
+    "integrated_service": "综合服务"
+  },
+  "task_groups": [
+    {
+      "id": "common",
+      "name": "通用任务",
+      "tasks": [
+        {
+          "id": "serviced_apartment_a/shared_N01",
+          "title": "公寓低中高层到达",
+          "instruction": "沿用 A01 至 A03 的目标层设计形成同一任务族的实例；每个正式跨层实例出生层必须不同于目标层。",
+          "design_revision": 3,
+          "category": "cross_floor",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "spawn_floor != target_floor",
+            "spawn_outside_cabin",
+            "normal_interlocks"
+          ],
+          "success_requirements": [
+            "actual_target_building_and_floor",
+            "full_body_and_payload_clear_of_threshold",
+            "stable_ground_support",
+            "observed_physical_elevator_use_history"
+          ],
+          "facility_condition_variants": [
+            "normal_call_and_selection",
+            "held_button_requires_release",
+            "wrong_floor_opening_is_not_arrival",
+            "obstruction_hold_and_reopen",
+            "fully_exit_before_success"
+          ],
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        },
+        {
+          "id": "serviced_apartment_a/shared_N02",
+          "title": "多梯可用性判断",
+          "instruction": "在一楼根据实际停运状态从 E1、E2、E3 中选择可用梯，到十五楼公共区；不能把离得最近当成可用。",
+          "design_revision": 3,
+          "category": "cross_floor",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "first_required_stop_differs_from_spawn_floor",
+            "spawn_outside_cabin",
+            "normal_interlocks",
+            "frozen_stop_or_availability_protocol"
+          ],
+          "success_requirements": [
+            "actual_target_building_and_floor",
+            "full_body_and_payload_clear_of_threshold",
+            "stable_ground_support",
+            "observed_physical_elevator_use_history",
+            "availability_event_and_chosen_lift_history"
+          ],
+          "distinguishing_mechanism": "alternate_lift",
+          "blocking_dependency": "需绑定可复现停运或恢复初态、可见提示、可行时间预算和通行历史裁判；恢复不得依赖无限等待或策略可调用的调试接口。",
+          "facility_condition_variants": [
+            "normal_call_and_selection",
+            "held_button_requires_release",
+            "wrong_floor_opening_is_not_arrival",
+            "obstruction_hold_and_reopen",
+            "fully_exit_before_success"
+          ],
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        },
+        {
+          "id": "serviced_apartment_a/shared_D01",
+          "title": "公寓自动入口通行",
+          "instruction": "从入口感应区外接近门、完整通过并离开感应区，检查两种本体均可触发且门正确恢复。",
+          "design_revision": 3,
+          "category": "door_access",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "no_payload",
+            "door_starts_closed",
+            "permission_explicit"
+          ],
+          "success_requirements": [
+            "physical_opening",
+            "full_body_passage_history",
+            "requested_final_door_state",
+            "body_clear_of_swing_and_sensor"
+          ],
+          "explicit_logic_features": [
+            "automatic_door"
+          ]
+        },
+        {
+          "id": "serviced_apartment_a/shared_D02",
+          "title": "住户入口手动门通行",
+          "instruction": "在三楼授权住户入口操作已解锁的手动门，进入、退出并关闭；不包含包裹。",
+          "design_revision": 3,
+          "category": "door_access",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "no_payload",
+            "door_starts_closed",
+            "permission_explicit"
+          ],
+          "success_requirements": [
+            "physical_opening",
+            "full_body_passage_history",
+            "requested_final_door_state",
+            "body_clear_of_swing_and_sensor"
+          ],
+          "distinguishing_mechanism": "hinged_passage",
+          "blocking_dependency": "绑定三楼真实住户门关节；初态权限、把手轨迹和两种身体通行空间待验收。",
+          "candidate_joint": "/World/Environment/Floor_3/Door_F3_R01/frame/door_joint",
+          "candidate_joint_exists": true,
+          "explicit_logic_features": []
+        },
+        {
+          "id": "serviced_apartment_a/shared_C01",
+          "title": "公寓公共区域照明设置",
+          "instruction": "按服务请求设置指定公共区域灯光，保持其他回路不变。",
+          "design_revision": 3,
+          "category": "facility_logic",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "entry_already_open",
+            "requested_circuit_binding",
+            "at_least_one_state_change_required"
+          ],
+          "success_requirements": [
+            "physical_switch_actuation",
+            "actual_target_light_state",
+            "unrelated_circuits_unchanged"
+          ],
+          "explicit_logic_features": [
+            "lighting"
+          ]
+        },
+        {
+          "id": "serviced_apartment_a/shared_C02",
+          "title": "空调面板模式与设定值控制",
+          "instruction": "在本场景指定可达空调面板上观察初态，将开关、模式和设定值改为任务要求；至少一项需改变，其他设备不变。评分使用面板与控制器实际状态，不要求室温达到设定温度。",
+          "design_revision": 3,
+          "category": "facility_logic",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "entry_already_open",
+            "bound_hvac_panel",
+            "at_least_one_requested_panel_state_differs"
+          ],
+          "success_requirements": [
+            "physical_selective_button_actuation",
+            "requested_power_mode_setpoint",
+            "unrelated_devices_unchanged"
+          ],
+          "blocking_dependency": "需验证两种夹爪不误触相邻按键，并接入模式、开关和设定值裁判；不把按钮几何存在当作可按或热效果证据。",
+          "candidate_panel": "climate_F10_F10_R01",
+          "explicit_logic_features": [
+            "hvac"
+          ]
+        },
+        {
+          "id": "serviced_apartment_a/shared_S01",
+          "title": "洁净衣物送往顶层住户",
+          "instruction": "将二楼 Laundry Clean Collection 的刚性衣物包装送到十六楼 1601 Service Cabinet；允许开门前暂放。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼接待、包裹、餐食和社区借还；二楼洗衣、健身与共享用品；三至十四楼住户；十五楼 Work Club、Equipment Library 和 Common Table；十六楼住户。",
+          "native_station_bindings": {
+            "F2_R01": {
+              "id": "F2_R01",
+              "label": "Laundry / Clean Collection",
+              "floor": 2,
+              "position": [
+                13.5,
+                9.1,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                13.5,
+                8.2
+              ],
+              "door_id": null,
+              "delivery_min": [
+                13.26,
+                8.86,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                13.74,
+                9.34,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "2F"
+            },
+            "F16_HOME1": {
+              "id": "F16_HOME1",
+              "label": "Resident 1601 / Service Cabinet",
+              "floor": 16,
+              "position": [
+                14.2,
+                7.55,
+                54.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                14.2,
+                6.6499999999999995
+              ],
+              "door_id": "F16_R01",
+              "delivery_min": [
+                13.959999999999999,
+                7.31,
+                54.745000000000005
+              ],
+              "delivery_max": [
+                14.44,
+                7.79,
+                54.945
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "16F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "serviced_apartment_a/shared_S02",
+          "title": "健身与洗衣双向周转",
+          "instruction": "将二楼洁净包装件送到 Fitness Towel Supply，再将 Used Towel Return 的封装件送到 Laundry Incoming Clothes，两个流向分别核对。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼接待、包裹、餐食和社区借还；二楼洗衣、健身与共享用品；三至十四楼住户；十五楼 Work Club、Equipment Library 和 Common Table；十六楼住户。",
+          "native_station_bindings": {
+            "F2_R01": {
+              "id": "F2_R01",
+              "label": "Laundry / Clean Collection",
+              "floor": 2,
+              "position": [
+                13.5,
+                9.1,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                13.5,
+                8.2
+              ],
+              "door_id": null,
+              "delivery_min": [
+                13.26,
+                8.86,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                13.74,
+                9.34,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "2F"
+            },
+            "F2_R02": {
+              "id": "F2_R02",
+              "label": "Fitness / Towel Supply",
+              "floor": 2,
+              "position": [
+                27,
+                8.4,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                27.0,
+                7.5
+              ],
+              "door_id": null,
+              "delivery_min": [
+                26.76,
+                8.16,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                27.24,
+                8.64,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "2F"
+            },
+            "F2_R04": {
+              "id": "F2_R04",
+              "label": "Fitness / Used Towel Return",
+              "floor": 2,
+              "position": [
+                34.5,
+                8.4,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                34.5,
+                7.5
+              ],
+              "door_id": null,
+              "delivery_min": [
+                34.26,
+                8.16,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                34.74,
+                8.64,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "2F"
+            },
+            "F2_WASH": {
+              "id": "F2_WASH",
+              "label": "Laundry / Incoming Clothes",
+              "floor": 2,
+              "position": [
+                3.2,
+                8.6,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                3.2,
+                7.699999999999999
+              ],
+              "door_id": null,
+              "delivery_min": [
+                2.96,
+                8.36,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                3.4400000000000004,
+                8.84,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "2F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "serviced_apartment_a/shared_S03",
+          "title": "共享办公设备归还",
+          "instruction": "从十五楼 Work Club Equipment Return 找到编号正确的轻型设备代理件，送到一楼 Community Lending Returns。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼接待、包裹、餐食和社区借还；二楼洗衣、健身与共享用品；三至十四楼住户；十五楼 Work Club、Equipment Library 和 Common Table；十六楼住户。",
+          "native_station_bindings": {
+            "F15_R01": {
+              "id": "F15_R01",
+              "label": "Work Club / Equipment Return",
+              "floor": 15,
+              "position": [
+                14.5,
+                8.4,
+                51.155
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                14.5,
+                7.5
+              ],
+              "door_id": null,
+              "delivery_min": [
+                14.26,
+                8.16,
+                51.145
+              ],
+              "delivery_max": [
+                14.74,
+                8.64,
+                51.345
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "15F"
+            },
+            "F1_R02": {
+              "id": "F1_R02",
+              "label": "Community Lending / Returns",
+              "floor": 1,
+              "position": [
+                34.5,
+                16,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                34.5,
+                15.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                34.26,
+                15.76,
+                0.745
+              ],
+              "delivery_max": [
+                34.74,
+                16.24,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "serviced_apartment_a/shared_S04",
+          "title": "共享餐桌餐食服务",
+          "instruction": "将一楼 The Table Meal Collection 的密封外卖送到十五楼 Common Table，核对订单和实际释放。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼接待、包裹、餐食和社区借还；二楼洗衣、健身与共享用品；三至十四楼住户；十五楼 Work Club、Equipment Library 和 Common Table；十六楼住户。",
+          "native_station_bindings": {
+            "F1_DINING": {
+              "id": "F1_DINING",
+              "label": "The Table / Meal Collection",
+              "floor": 1,
+              "position": [
+                14.8,
+                16,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                14.8,
+                15.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                14.56,
+                15.76,
+                0.745
+              ],
+              "delivery_max": [
+                15.040000000000001,
+                16.24,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            },
+            "F15_R02": {
+              "id": "F15_R02",
+              "label": "Common Table / Meal Handover",
+              "floor": 15,
+              "position": [
+                36.5,
+                14.7,
+                51.155
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                36.5,
+                13.799999999999999
+              ],
+              "door_id": null,
+              "delivery_min": [
+                36.26,
+                14.459999999999999,
+                51.145
+              ],
+              "delivery_max": [
+                36.74,
+                14.94,
+                51.345
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "15F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "serviced_apartment_a/shared_S05",
+          "title": "社区借用与住户包裹分流",
+          "instruction": "将一楼借用区的小件送到十五楼 Equipment Library，同时将一楼包裹区的指定件送到三楼 302 Service Cabinet；允许分别执行。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼接待、包裹、餐食和社区借还；二楼洗衣、健身与共享用品；三至十四楼住户；十五楼 Work Club、Equipment Library 和 Common Table；十六楼住户。",
+          "native_station_bindings": {
+            "F1_R02": {
+              "id": "F1_R02",
+              "label": "Community Lending / Returns",
+              "floor": 1,
+              "position": [
+                34.5,
+                16,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                34.5,
+                15.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                34.26,
+                15.76,
+                0.745
+              ],
+              "delivery_max": [
+                34.74,
+                16.24,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            },
+            "F15_R03": {
+              "id": "F15_R03",
+              "label": "Equipment Library / Checkout",
+              "floor": 15,
+              "position": [
+                27,
+                20.8,
+                51.155
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                27.0,
+                19.900000000000002
+              ],
+              "door_id": null,
+              "delivery_min": [
+                26.76,
+                20.560000000000002,
+                51.145
+              ],
+              "delivery_max": [
+                27.24,
+                21.04,
+                51.345
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "15F"
+            },
+            "F1_R01": {
+              "id": "F1_R01",
+              "label": "Parcel Collection",
+              "floor": 1,
+              "position": [
+                27,
+                16,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                27.0,
+                15.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                26.76,
+                15.76,
+                0.745
+              ],
+              "delivery_max": [
+                27.24,
+                16.24,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            },
+            "F3_HOME2": {
+              "id": "F3_HOME2",
+              "label": "Resident 302 / Service Cabinet",
+              "floor": 3,
+              "position": [
+                14.2,
+                13.55,
+                7.955
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                14.2,
+                12.65
+              ],
+              "door_id": "F3_R02",
+              "delivery_min": [
+                13.959999999999999,
+                13.31,
+                7.945
+              ],
+              "delivery_max": [
+                14.44,
+                13.790000000000001,
+                8.145
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "3F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "serviced_apartment_a/shared_S06",
+          "title": "顶层住户待洗件回收",
+          "instruction": "从十六楼 1601 Service Cabinet 回收带待洗标签的刚性包装，送到二楼 Laundry Incoming Clothes；不能误放洁净区。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼接待、包裹、餐食和社区借还；二楼洗衣、健身与共享用品；三至十四楼住户；十五楼 Work Club、Equipment Library 和 Common Table；十六楼住户。",
+          "native_station_bindings": {
+            "F16_HOME1": {
+              "id": "F16_HOME1",
+              "label": "Resident 1601 / Service Cabinet",
+              "floor": 16,
+              "position": [
+                14.2,
+                7.55,
+                54.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                14.2,
+                6.6499999999999995
+              ],
+              "door_id": "F16_R01",
+              "delivery_min": [
+                13.959999999999999,
+                7.31,
+                54.745000000000005
+              ],
+              "delivery_max": [
+                14.44,
+                7.79,
+                54.945
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "16F"
+            },
+            "F2_WASH": {
+              "id": "F2_WASH",
+              "label": "Laundry / Incoming Clothes",
+              "floor": 2,
+              "position": [
+                3.2,
+                8.6,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                3.2,
+                7.699999999999999
+              ],
+              "door_id": null,
+              "delivery_min": [
+                2.96,
+                8.36,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                3.4400000000000004,
+                8.84,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "2F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "serviced_apartment_a/shared_S07",
+          "title": "入口包裹与共享办公准备",
+          "instruction": "从一楼包裹交接点取指定件，完成绑定自动入口通行，送到十五楼 Work Club，并按清单设置该区域灯与空调。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "一楼接待、包裹、餐食和社区借还；二楼洗衣、健身与共享用品；三至十四楼住户；十五楼 Work Club、Equipment Library 和 Common Table；十六楼住户。",
+          "native_station_bindings": {
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "Reception / Resident Handover",
+              "floor": 1,
+              "position": [
+                14.2,
+                7.65,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                14.2,
+                6.75
+              ],
+              "door_id": null,
+              "delivery_min": [
+                13.959999999999999,
+                7.41,
+                0.745
+              ],
+              "delivery_max": [
+                14.44,
+                7.890000000000001,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            },
+            "F15_R01": {
+              "id": "F15_R01",
+              "label": "Work Club / Equipment Return",
+              "floor": 15,
+              "position": [
+                14.5,
+                8.4,
+                51.155
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                14.5,
+                7.5
+              ],
+              "door_id": null,
+              "delivery_min": [
+                14.26,
+                8.16,
+                51.145
+              ],
+              "delivery_max": [
+                14.74,
+                8.64,
+                51.345
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "15F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": [
+            "automatic_door",
+            "elevator",
+            "lighting",
+            "hvac"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "specific",
+      "name": "专用任务",
+      "tasks": []
+    }
+  ]
+}

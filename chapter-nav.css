@@ -1,0 +1,36 @@
+/* Persistent chapter rail, outside the main reading column. */
+.has-hero-cinema{--chapter-nav-width:250px;padding:0 0 0 var(--chapter-nav-width)}
+.has-hero-cinema .chapter-nav{position:fixed;inset:0 auto 0 0;z-index:100;width:var(--chapter-nav-width);max-width:none;margin:0;padding:clamp(72px,12vh,130px) 22px 32px;display:flex;flex-direction:column;align-items:stretch;gap:0;background:var(--bg);border-right:1px solid color-mix(in srgb,var(--line) 50%,transparent);overflow-y:auto}
+.chapter-nav .brand{font-size:26px;padding-left:10px;flex-shrink:0}
+.chapter-nav nav{display:flex;flex-direction:column;gap:8px;margin:0;flex:0;overflow:visible;white-space:normal}
+.chapter-nav nav a{display:block;padding:12px 12px;border-radius:5px;font-size:16px;line-height:1.5;color:var(--muted);text-decoration:none;border-left:2px solid transparent}
+.chapter-nav nav a:hover{color:var(--ink);background:color-mix(in srgb,var(--soft) 55%,transparent)}
+.chapter-nav nav a[aria-current="location"]{color:var(--accent);background:var(--soft);border-left-color:var(--accent);font-weight:600}
+.chapter-nav .theme-switch{align-self:flex-start;margin:24px 0 0 10px;flex-shrink:0}
+.has-hero-cinema :is(#home,#scenes,#embodied-body,#infrastructure,#elevators,#interactions,#missions){scroll-margin-top:24px}
+.chapter-toggle{display:none}
+.has-hero-cinema .title-line{white-space:normal}
+.has-hero-cinema .hero{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:24px}
+@media(max-width:800px){
+ .has-hero-cinema{padding-left:0;padding-top:58px}
+ .has-hero-cinema .chapter-nav{width:250px;padding-top:88px;transform:translateX(-100%);transition:transform .2s;box-shadow:10px 0 40px #0001}
+ .has-hero-cinema.nav-open .chapter-nav{transform:translateX(0)}
+ .chapter-toggle{position:fixed;display:flex;gap:10px;align-items:center;top:12px;left:20px;z-index:110;padding:8px 13px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font-size:12px}
+ .has-hero-cinema :is(#home,#scenes,#embodied-body,#infrastructure,#elevators,#interactions,#missions){scroll-margin-top:70px}
+}
+@media(max-width:900px){.has-hero-cinema .hero{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.has-hero-cinema .chapter-nav{transition:none}}
+
+.chapter-nav .brand small{display:block;margin-top:8px;font-size:12px;font-weight:400;line-height:1.6;letter-spacing:0;color:var(--muted)}
+.chapter-label{margin:46px 0 12px;padding-left:12px;font-size:12px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted)}
+.chapter-gallery{display:flex;justify-content:space-between;gap:12px;margin:28px 10px 0;padding-top:20px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+@media(min-width:801px) and (max-width:1200px){
+ .has-hero-cinema{--chapter-nav-width:240px}
+ .has-hero-cinema .chapter-nav{padding-left:16px;padding-right:16px}
+ .has-hero-cinema .hero{grid-template-columns:1fr;padding:40px 32px;gap:24px}
+ .has-hero-cinema .hero-content{max-width:680px;padding-bottom:0}
+ .has-hero-cinema .hero-cinema{max-width:690px;margin:auto}
+}
+@media(max-width:800px){.chapter-label{margin-top:28px}}
+
+.chapter-nav .theme-switch button{font-size:13px;padding:7px 11px}

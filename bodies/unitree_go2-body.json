@@ -1,0 +1,19 @@
+{
+  "embodiment": "Unitree Go2",
+  "sources": [
+    "simulation/robots/unitree_go2/runtime.yaml",
+    "simulation/robots/unitree_go2/model.py",
+    "simulation/robots/unitree_go2/controller.py"
+  ],
+  "mode": "simulation",
+  "physics_engine": "MuJoCo",
+  "base": "floating",
+  "legs": 4,
+  "joints_per_leg": 3,
+  "active_actuators": 12,
+  "locomotion_policy": "HIMLoco",
+  "physics_hz": 500.0,
+  "policy_hz": 50.0,
+  "arm": null,
+  "end_effector": null
+}

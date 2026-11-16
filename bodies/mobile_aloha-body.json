@@ -1,0 +1,104 @@
+{
+  "embodiment": "Mobile ALOHA",
+  "sources": [
+    "simulation/robots/mobile_aloha/model.py",
+    "simulation/robots/mobile_aloha/controller.py",
+    "simulation/robots/mobile_aloha/asset_manifest.json"
+  ],
+  "mode": "simulation",
+  "variant": "mobile_aloha_adapted",
+  "physics_engine": "MuJoCo",
+  "base": "free body / physical differential drive",
+  "arm_joints_per_side": 6,
+  "active_actuators": 16,
+  "gripper_actuators": 2,
+  "wheel_actuators": 2,
+  "physics_hz": 500,
+  "control_hz": 50,
+  "wheel_radius_m": 0.0605,
+  "track_m": 0.34,
+  "transport_pose_rad": [
+    0.0,
+    -0.55,
+    0.8,
+    0.0,
+    -0.25,
+    0.0
+  ],
+  "source": "https://github.com/google-deepmind/mujoco_menagerie/tree/0059d4335f8156206f63a35662313385f7ad6d74/aloha",
+  "revision": "0059d4335f8156206f63a35662313385f7ad6d74",
+  "chassis_cad": {
+    "source": "https://github.com/agilexrobotics/mobile_aloha_sim",
+    "revision": "f799ae0192c0c2bbd502ec4d9bbec8c2633acd1a",
+    "license": "BSD declared by aloha_new_description/package.xml; no standalone license text in upstream tree",
+    "files": [
+      {
+        "path": "aloha_new_description/meshes/tracer_base_link_no_wheel.dae",
+        "local": "tracer_base_link_no_wheel.dae",
+        "sha256": "d3a1ee3b34dbc418e888d68148d04fccda589e00d5100fbd3cbc2f17154e0a08",
+        "bytes": 13769590
+      },
+      {
+        "path": "aloha_new_description/meshes/tracer_wheel.dae",
+        "local": "tracer_wheel.dae",
+        "sha256": "42784402bca05e9f406f4e08d8ea1cc7ff57db9fee0e0b0b557670d0ee1d10c1",
+        "bytes": 937442
+      },
+      {
+        "path": "aloha_new_description/meshes/castor.dae",
+        "local": "castor.dae",
+        "sha256": "0a61bca6839f37ebebd89021474821abfd908d2b50867f221e3504db4d84a06a",
+        "bytes": 323187
+      },
+      {
+        "path": "aloha_new_description/meshes/castor_joint.dae",
+        "local": "castor_joint.dae",
+        "sha256": "901cad2da533c8fd0f3e3ce25a4d5b5d1c689d5f852640cd7dab041dc647d629",
+        "bytes": 543388
+      },
+      {
+        "path": "aloha_new_description/meshes/body.dae",
+        "local": "body.dae",
+        "sha256": "2bad2557aad93a83adad913da6ee30f32d4414602f9f7be138c377a0543be659",
+        "bytes": 61659114
+      },
+      {
+        "path": "aloha_new_description/meshes/camera_stand_1.dae",
+        "local": "camera_stand_1.dae",
+        "sha256": "99469306eb9cff5486489f367eb3da458b214d0c00ce8f323810d1e9d34e5176",
+        "bytes": 952351
+      },
+      {
+        "path": "aloha_new_description/meshes/camera_stand_2.dae",
+        "local": "camera_stand_2.dae",
+        "sha256": "faf9c2368041dc83709ac7020328ac5cb969eadf153d4d508a9349d1b75f1646",
+        "bytes": 463382
+      },
+      {
+        "path": "aloha_new_description/urdf/aloha_new.urdf",
+        "local": "aloha_new.urdf",
+        "sha256": "d4a115493af6a67ef969cfb8686b54f2970225b617ec6dd99cf682c0c4c7b6e9",
+        "bytes": 60578
+      },
+      {
+        "path": "aloha_new_description/urdf/aloha_tracer2.urdf",
+        "local": "aloha_tracer2.urdf",
+        "sha256": "6c67b45b19ff619932499eba18ff9010067c7bc1794d35ca1c778b3f642a3c60",
+        "bytes": 60327
+      },
+      {
+        "path": "aloha_new_description/package.xml",
+        "local": "package.xml",
+        "sha256": "8b7aa5c8b34c8854ad4e033132ff1f8a406f5bb8c32260a8e14b337cf570dba4",
+        "bytes": 678
+      }
+    ]
+  },
+  "license": "BSD-3-Clause",
+  "approximate_components": [
+    "chassis inertia and collision shapes",
+    "support balls",
+    "sensor mounting"
+  ],
+  "gravity_compensation": "arms only"
+}

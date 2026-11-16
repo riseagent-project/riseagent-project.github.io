@@ -1,0 +1,51 @@
+{
+  "agent_submission": {
+    "status": "success",
+    "sim_time": 421.1000219620764,
+    "physical_success": true,
+    "success": true
+  },
+  "condition_details": {
+    "arrive_outside_elevator": {
+      "success": true,
+      "conditions": {
+        "target_floor": true,
+        "building_floor_contact": true,
+        "footprint_on_building_floor": true,
+        "outside_cabin_and_threshold": true
+      }
+    }
+  },
+  "schema_version": "2.0",
+  "task_id": "apartment/A02",
+  "seed": 0,
+  "track": "fixed",
+  "full_success": true,
+  "terminal_goal_fraction": 1.0,
+  "goals": {
+    "arrive_outside_elevator": true
+  },
+  "stage_history": {},
+  "events": [],
+  "sim_time_s": 421.1000219620764,
+  "wall_time_s": 893.3910954390012,
+  "distance_m": 37.97950861752838,
+  "invalid_intervention": false,
+  "failure": null,
+  "event_counts": {
+    "drop": 0,
+    "wrong_delivery": 0,
+    "unintended_contact": 0,
+    "human_intervention": 0,
+    "recovery": 0,
+    "stage_attempt": 0
+  },
+  "timings_s": {
+    "device_wait": 0,
+    "arm_operation": 0,
+    "policy_inference": 0
+  },
+  "validation_scope": "trusted snapshot replay; policy performance requires an instrumented full run",
+  "robot": "FWMiniPiper",
+  "backend": "isaac"
+}

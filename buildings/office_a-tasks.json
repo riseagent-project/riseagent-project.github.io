@@ -1,0 +1,1002 @@
+{
+  "version": 3,
+  "building": "office_a",
+  "source_scene": "office_a",
+  "name": "办公楼",
+  "status": "design_pending_validation",
+  "categories": {
+    "cross_floor": "跨楼层通行",
+    "door_access": "门与门禁交互",
+    "facility_logic": "设施状态控制",
+    "integrated_service": "综合服务"
+  },
+  "task_groups": [
+    {
+      "id": "common",
+      "name": "通用任务",
+      "tasks": [
+        {
+          "id": "office_a/shared_N01",
+          "title": "乘电梯到指定办公层",
+          "instruction": "限定在同一原生办公楼内，从一楼乘电梯到二楼并完整驶出；上下办公楼资源分别实例化，不穿越网站拼接楼层。",
+          "design_revision": 3,
+          "category": "cross_floor",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "spawn_floor != target_floor",
+            "spawn_outside_cabin",
+            "normal_interlocks"
+          ],
+          "success_requirements": [
+            "actual_target_building_and_floor",
+            "full_body_and_payload_clear_of_threshold",
+            "stable_ground_support",
+            "observed_physical_elevator_use_history"
+          ],
+          "facility_condition_variants": [
+            "normal_call_and_selection",
+            "held_button_requires_release",
+            "wrong_floor_opening_is_not_arrival",
+            "obstruction_hold_and_reopen",
+            "fully_exit_before_success"
+          ],
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        },
+        {
+          "id": "office_a/shared_N02",
+          "title": "停运电梯识别与改乘",
+          "instruction": "在同一原生办公楼内读取 E1 停运提示，选择可用 E2 到指定办公层；无配送目标。",
+          "design_revision": 3,
+          "category": "cross_floor",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "first_required_stop_differs_from_spawn_floor",
+            "spawn_outside_cabin",
+            "normal_interlocks",
+            "frozen_stop_or_availability_protocol"
+          ],
+          "success_requirements": [
+            "actual_target_building_and_floor",
+            "full_body_and_payload_clear_of_threshold",
+            "stable_ground_support",
+            "observed_physical_elevator_use_history",
+            "availability_event_and_chosen_lift_history"
+          ],
+          "distinguishing_mechanism": "alternate_lift",
+          "blocking_dependency": "需绑定可复现停运或恢复初态、可见提示、可行时间预算和通行历史裁判；恢复不得依赖无限等待或策略可调用的调试接口。",
+          "facility_condition_variants": [
+            "normal_call_and_selection",
+            "held_button_requires_release",
+            "wrong_floor_opening_is_not_arrival",
+            "obstruction_hold_and_reopen",
+            "fully_exit_before_success"
+          ],
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        },
+        {
+          "id": "office_a/shared_D01",
+          "title": "会议室开门与通行",
+          "instruction": "从门外打开指定会议室门，进入后退出并恢复关门状态；门初始不锁，无物品搬运。",
+          "design_revision": 3,
+          "category": "door_access",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "no_payload",
+            "door_starts_closed",
+            "permission_explicit"
+          ],
+          "success_requirements": [
+            "physical_opening",
+            "full_body_passage_history",
+            "requested_final_door_state",
+            "body_clear_of_swing_and_sensor"
+          ],
+          "explicit_logic_features": []
+        },
+        {
+          "id": "office_a/shared_D02",
+          "title": "档案柜滑门取用通道",
+          "instruction": "在一楼 Mailroom 交接台新增的档案柜上滑开柜门至指定开口，再关门；不取物、不要求身体进入。",
+          "design_revision": 3,
+          "category": "door_access",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "no_payload",
+            "door_starts_closed",
+            "permission_explicit"
+          ],
+          "success_requirements": [
+            "physical_sliding_opening",
+            "opening_then_closing_history",
+            "final_closed_joint",
+            "no_payload_goal"
+          ],
+          "distinguishing_mechanism": "container_sliding",
+          "blocking_dependency": "已安装真实滑轨、刚体与把手；两种夹爪完整开合轨迹及任务初态、裁判待验收。",
+          "candidate_joint": "/World/Environment/Floor_1/TaskFacilities/SlidingCabinet/frame/door_joint",
+          "candidate_joint_exists": true,
+          "explicit_logic_features": []
+        },
+        {
+          "id": "office_a/shared_C01",
+          "title": "办公区域照明复位",
+          "instruction": "读取目标开关状态，把指定办公公共区域照明设为请求状态，保持其他回路不变。",
+          "design_revision": 3,
+          "category": "facility_logic",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "entry_already_open",
+            "requested_circuit_binding",
+            "at_least_one_state_change_required"
+          ],
+          "success_requirements": [
+            "physical_switch_actuation",
+            "actual_target_light_state",
+            "unrelated_circuits_unchanged"
+          ],
+          "explicit_logic_features": [
+            "lighting"
+          ]
+        },
+        {
+          "id": "office_a/shared_C02",
+          "title": "空调面板模式与设定值控制",
+          "instruction": "在本场景指定可达空调面板上观察初态，将开关、模式和设定值改为任务要求；至少一项需改变，其他设备不变。评分使用面板与控制器实际状态，不要求室温达到设定温度。",
+          "design_revision": 3,
+          "category": "facility_logic",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "entry_already_open",
+            "bound_hvac_panel",
+            "at_least_one_requested_panel_state_differs"
+          ],
+          "success_requirements": [
+            "physical_selective_button_actuation",
+            "requested_power_mode_setpoint",
+            "unrelated_devices_unchanged"
+          ],
+          "blocking_dependency": "需验证两种夹爪不误触相邻按键，并接入模式、开关和设定值裁判；不把按钮几何存在当作可按或热效果证据。",
+          "candidate_panel": "climate_F1",
+          "explicit_logic_features": [
+            "hvac"
+          ]
+        },
+        {
+          "id": "office_a/shared_S01",
+          "title": "描述文件取回",
+          "instruction": "从二楼 Island B 的有间距候选文件盒中找出目标，送回一楼 Mailroom；按标签而非近邻位置选择。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "原生 lower 楼一至六层均含 Mailroom 与 Island A 至 F 工位；使用收件区到工位、上层回收和多站次序体现服务。upper 为独立三层资源，不与 lower 拼接通行。",
+          "native_station_bindings": {
+            "F2_R02": {
+              "id": "F2_R02",
+              "label": "2F Island B Delivery",
+              "floor": 2,
+              "position": [
+                11.235,
+                7.7,
+                4.355
+              ],
+              "yaw": -90,
+              "dock_xy": [
+                10.545,
+                7.7
+              ],
+              "door_id": null,
+              "delivery_min": [
+                10.995,
+                7.46,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                11.475,
+                7.94,
+                4.545000000000001
+              ],
+              "support_size": [
+                0.58,
+                0.65
+              ],
+              "support_kind": "desk_end_shelf"
+            },
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "1F Mailroom",
+              "floor": 1,
+              "position": [
+                10,
+                3,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                10.0,
+                2.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                9.76,
+                2.76,
+                0.745
+              ],
+              "delivery_max": [
+                10.24,
+                3.24,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "office_a/shared_S02",
+          "title": "跨层两工位分发",
+          "instruction": "将一楼 Mailroom 的两件不同文件分别送到二楼 Island A 和六楼 Island B，允许逐件往返。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "原生 lower 楼一至六层均含 Mailroom 与 Island A 至 F 工位；使用收件区到工位、上层回收和多站次序体现服务。upper 为独立三层资源，不与 lower 拼接通行。",
+          "native_station_bindings": {
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "1F Mailroom",
+              "floor": 1,
+              "position": [
+                10,
+                3,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                10.0,
+                2.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                9.76,
+                2.76,
+                0.745
+              ],
+              "delivery_max": [
+                10.24,
+                3.24,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F2_R01": {
+              "id": "F2_R01",
+              "label": "2F Island A Delivery",
+              "floor": 2,
+              "position": [
+                1.2349999999999999,
+                7.7,
+                4.355
+              ],
+              "yaw": -90,
+              "dock_xy": [
+                0.5449999999999999,
+                7.7
+              ],
+              "door_id": null,
+              "delivery_min": [
+                0.9949999999999999,
+                7.46,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                1.4749999999999999,
+                7.94,
+                4.545000000000001
+              ],
+              "support_size": [
+                0.58,
+                0.65
+              ],
+              "support_kind": "desk_end_shelf"
+            },
+            "F6_R02": {
+              "id": "F6_R02",
+              "label": "6F Island B Delivery",
+              "floor": 6,
+              "position": [
+                11.235,
+                7.7,
+                18.755
+              ],
+              "yaw": -90,
+              "dock_xy": [
+                10.545,
+                7.7
+              ],
+              "door_id": null,
+              "delivery_min": [
+                10.995,
+                7.46,
+                18.744999999999997
+              ],
+              "delivery_max": [
+                11.475,
+                7.94,
+                18.945
+              ],
+              "support_size": [
+                0.58,
+                0.65
+              ],
+              "support_kind": "desk_end_shelf"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "office_a/shared_S03",
+          "title": "上层文件回收与照明收尾",
+          "instruction": "从六楼 Island A 收回文件并送到一楼 Mailroom，再按清单关闭六楼指定公共照明；明确记录物品归还和设备终态。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "原生 lower 楼一至六层均含 Mailroom 与 Island A 至 F 工位；使用收件区到工位、上层回收和多站次序体现服务。upper 为独立三层资源，不与 lower 拼接通行。",
+          "native_station_bindings": {
+            "F6_R01": {
+              "id": "F6_R01",
+              "label": "6F Island A Delivery",
+              "floor": 6,
+              "position": [
+                1.2349999999999999,
+                7.7,
+                18.755
+              ],
+              "yaw": -90,
+              "dock_xy": [
+                0.5449999999999999,
+                7.7
+              ],
+              "door_id": null,
+              "delivery_min": [
+                0.9949999999999999,
+                7.46,
+                18.744999999999997
+              ],
+              "delivery_max": [
+                1.4749999999999999,
+                7.94,
+                18.945
+              ],
+              "support_size": [
+                0.58,
+                0.65
+              ],
+              "support_kind": "desk_end_shelf"
+            },
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "1F Mailroom",
+              "floor": 1,
+              "position": [
+                10,
+                3,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                10.0,
+                2.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                9.76,
+                2.76,
+                0.745
+              ],
+              "delivery_max": [
+                10.24,
+                3.24,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "office_a/shared_S04",
+          "title": "便笺记忆与工位交接",
+          "instruction": "在一楼 Mailroom 阅读指定楼层与工位便笺，离开后便笺撤下；将文件送到记住的二楼 Island B。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "原生 lower 楼一至六层均含 Mailroom 与 Island A 至 F 工位；使用收件区到工位、上层回收和多站次序体现服务。upper 为独立三层资源，不与 lower 拼接通行。",
+          "native_station_bindings": {
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "1F Mailroom",
+              "floor": 1,
+              "position": [
+                10,
+                3,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                10.0,
+                2.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                9.76,
+                2.76,
+                0.745
+              ],
+              "delivery_max": [
+                10.24,
+                3.24,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F2_R02": {
+              "id": "F2_R02",
+              "label": "2F Island B Delivery",
+              "floor": 2,
+              "position": [
+                11.235,
+                7.7,
+                4.355
+              ],
+              "yaw": -90,
+              "dock_xy": [
+                10.545,
+                7.7
+              ],
+              "door_id": null,
+              "delivery_min": [
+                10.995,
+                7.46,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                11.475,
+                7.94,
+                4.545000000000001
+              ],
+              "support_size": [
+                0.58,
+                0.65
+              ],
+              "support_kind": "desk_end_shelf"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "office_a/shared_S05",
+          "title": "档案柜取件与工位准备",
+          "instruction": "打开一楼 Mailroom 滑门柜取指定文件盒，暂放后关柜门，送到二楼 Island A，并把指定办公照明设为开启。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "原生 lower 楼一至六层均含 Mailroom 与 Island A 至 F 工位；使用收件区到工位、上层回收和多站次序体现服务。upper 为独立三层资源，不与 lower 拼接通行。",
+          "native_station_bindings": {
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "1F Mailroom",
+              "floor": 1,
+              "position": [
+                10,
+                3,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                10.0,
+                2.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                9.76,
+                2.76,
+                0.745
+              ],
+              "delivery_max": [
+                10.24,
+                3.24,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F2_R01": {
+              "id": "F2_R01",
+              "label": "2F Island A Delivery",
+              "floor": 2,
+              "position": [
+                1.2349999999999999,
+                7.7,
+                4.355
+              ],
+              "yaw": -90,
+              "dock_xy": [
+                0.5449999999999999,
+                7.7
+              ],
+              "door_id": null,
+              "delivery_min": [
+                0.9949999999999999,
+                7.46,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                1.4749999999999999,
+                7.94,
+                4.545000000000001
+              ],
+              "support_size": [
+                0.58,
+                0.65
+              ],
+              "support_kind": "desk_end_shelf"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": [
+            "elevator",
+            "lighting"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "specific",
+      "name": "专用任务",
+      "tasks": [
+        {
+          "id": "office_a/extension_P01",
+          "category": "integrated_service",
+          "title": "车载篮筐双工位配送",
+          "instruction": "将一楼 Mailroom 的两件不同文件分别送到二楼 Island A 和六楼 Island B，本专用任务要求两件包装均稳定装入车载篮筐后再开始交付，运输途中保持订单区分，逐件取出并释放到正确交接区域。",
+          "required_bodies": [
+            "FWMiniPiper"
+          ],
+          "evaluation_enabled": false,
+          "status": "design_pending_body_validation",
+          "excluded_from_common_minimum": true,
+          "source_common_task": "office_a/shared_S02",
+          "native_station_bindings": {
+            "F1_SERVICE": {
+              "id": "F1_SERVICE",
+              "label": "1F Mailroom",
+              "floor": 1,
+              "position": [
+                10,
+                3,
+                0.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                10.0,
+                2.1
+              ],
+              "door_id": null,
+              "delivery_min": [
+                9.76,
+                2.76,
+                0.745
+              ],
+              "delivery_max": [
+                10.24,
+                3.24,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ]
+            },
+            "F2_R01": {
+              "id": "F2_R01",
+              "label": "2F Island A Delivery",
+              "floor": 2,
+              "position": [
+                1.2349999999999999,
+                7.7,
+                4.355
+              ],
+              "yaw": -90,
+              "dock_xy": [
+                0.5449999999999999,
+                7.7
+              ],
+              "door_id": null,
+              "delivery_min": [
+                0.9949999999999999,
+                7.46,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                1.4749999999999999,
+                7.94,
+                4.545000000000001
+              ],
+              "support_size": [
+                0.58,
+                0.65
+              ],
+              "support_kind": "desk_end_shelf"
+            },
+            "F6_R02": {
+              "id": "F6_R02",
+              "label": "6F Island B Delivery",
+              "floor": 6,
+              "position": [
+                11.235,
+                7.7,
+                18.755
+              ],
+              "yaw": -90,
+              "dock_xy": [
+                10.545,
+                7.7
+              ],
+              "door_id": null,
+              "delivery_min": [
+                10.995,
+                7.46,
+                18.744999999999997
+              ],
+              "delivery_max": [
+                11.475,
+                7.94,
+                18.945
+              ],
+              "support_size": [
+                0.58,
+                0.65
+              ],
+              "support_kind": "desk_end_shelf"
+            }
+          },
+          "requires_robot_basket": true,
+          "requires_simultaneous_two_hands": false,
+          "reason": "测试 FWMiniPiper 车载篮筐的多件承载、订单区分与再抓取；需验证篮内双件空间、总负载、抗滑和手臂取放路径，不要求 G1 配备相同篮筐。"
+        }
+      ]
+    }
+  ]
+}

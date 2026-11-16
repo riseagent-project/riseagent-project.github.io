@@ -1,0 +1,49 @@
+{
+  "embodiment": "Unitree G1",
+  "sources": [
+    "simulation/robots/unitree_g1/tools/model.py",
+    "simulation/robots/unitree_g1/controller.py",
+    "simulation/robots/unitree_g1/tools/manipulation.py",
+    "simulation/robots/unitree_g1/assets/robotiq_2f85/manifest.json"
+  ],
+  "mode": "simulation",
+  "base": "floating",
+  "physics_engine": "MuJoCo",
+  "body_joints": 29,
+  "body_joint_groups": {
+    "legs": 12,
+    "waist": 3,
+    "arms": 14
+  },
+  "arm_joints_per_side": 7,
+  "active_actuators": 31,
+  "physics_hz": 500,
+  "policy_hz": 50,
+  "locomotion_policy": "NVIDIA GEAR-SONIC",
+  "end_effector": {
+    "model": "Robotiq 2F-85",
+    "quantity": 2,
+    "nominal_opening_m": 0.085,
+    "active_actuators_per_gripper": 1,
+    "linkage_joints_per_gripper": 8,
+    "command_range": [
+      0.0,
+      255.0
+    ],
+    "command_meaning": {
+      "open": 0,
+      "close": 255
+    },
+    "standby_command": 112.0,
+    "tcp_wrist_xyz_m": [
+      0.1973,
+      0,
+      0
+    ],
+    "closing_axis": "wrist Y",
+    "visual_scale": 1,
+    "adapter": "short silver simulation mounting ring",
+    "source": "https://github.com/google-deepmind/mujoco_menagerie/tree/71f066ad0be9cd271f7ed58c030243ef157af9f4/robotiq_2f85",
+    "revision": "71f066ad0be9cd271f7ed58c030243ef157af9f4"
+  }
+}

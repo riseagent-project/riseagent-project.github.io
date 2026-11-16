@@ -1,0 +1,16 @@
+.hero-affiliation{margin:24px 0 0;color:var(--muted);font-size:15px;letter-spacing:.15px}
+.has-hero-cinema .paper-resources{gap:12px;margin-top:26px;flex-wrap:wrap}
+.paper-resource{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:64px;padding:12px 20px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--ink);font:inherit;font-size:16px;text-decoration:none}
+.paper-resource svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.paper-resource .quote-icon{fill:currentColor;stroke:none}
+.paper-resource small{display:block;font-size:9px;letter-spacing:.25px;color:var(--muted);margin-top:1px}
+.paper-resource:disabled{cursor:default;opacity:.85}
+.paper-resource:not(:disabled):hover{background:var(--soft);text-decoration:none}
+#bibtex-dialog{width:min(650px,calc(100% - 40px));max-height:85svh;overflow:auto;border:1px solid var(--line);border-radius:12px;padding:28px;background:var(--bg);color:var(--ink)}
+#bibtex-dialog::backdrop{background:#08161080;backdrop-filter:blur(4px)}
+.citation-heading{display:flex;align-items:center;justify-content:space-between;gap:20px}.citation-heading h2{margin:0;font-size:24px}
+.citation-heading button{border:0;background:none;color:var(--ink);font-size:28px;padding:0 8px}
+.citation-note{color:var(--muted);font-size:13px}
+#citation-text{white-space:pre-wrap;overflow-wrap:anywhere;padding:18px;background:var(--soft);border-radius:6px;font:13px/1.7 monospace}
+.citation-actions{display:flex;align-items:center;gap:16px;font-size:12px}.citation-actions button{padding:9px 15px;background:var(--soft);color:var(--ink);border:1px solid var(--line);border-radius:5px}
+@media(max-width:560px){.paper-resource{padding:10px 14px;gap:9px;font-size:14px;min-height:60px}.has-hero-cinema .paper-resources{gap:8px}.hero-affiliation{font-size:14px}}

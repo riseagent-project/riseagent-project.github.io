@@ -1,0 +1,247 @@
+{
+  "date": "2026-10-15",
+  "execution_entry": "Dashboard fixed benchmark",
+  "engine": "mujoco",
+  "source_assets": "Isaac/USD",
+  "policy_mode": "nonprivileged_autonomous",
+  "trial_scope": "One seed-0 episode per case, sequential A/B/C; not a success-rate estimate",
+  "cases": [
+    {
+      "case": "door-A",
+      "body": "FWMiniPiper",
+      "scene": "office_a",
+      "seed": 0,
+      "engine": "mujoco",
+      "execution_entry": "Dashboard fixed benchmark",
+      "policy_mode": "nonprivileged_autonomous",
+      "model": "gpt-6-astra",
+      "full_success": false,
+      "agent_submission": {
+        "status": "success",
+        "sim_time": 80.07999999999477,
+        "physical_success": false,
+        "success": false
+      },
+      "failure": null,
+      "opening_and_whole_body_crossing_observed": true,
+      "whole_body_on_target_side_observed": true,
+      "sampled_robot_door_contact_seen": true,
+      "manipulation_contact_reported": false,
+      "contact_sampling_note": "Private door observer sampled at approximately 10 Hz; brief contacts may be missed. Manipulation contact is not door-specific proof.",
+      "max_door_angle_deg": 57.53194998683501,
+      "terminal_hold_s": 0.0,
+      "final_sim_time_s": 79.99999999999496,
+      "frozen_scorer_min_opening_deg": 60,
+      "condition_details": {
+        "physical_door_traversal": {
+          "success": false,
+          "conditions": {
+            "closed_reset": true,
+            "physical_contact": true,
+            "sufficient_opening": false,
+            "whole_body_crossed_and_stopped": false,
+            "no_bypass": true,
+            "no_fall": true
+          }
+        }
+      },
+      "no_bypass": true,
+      "no_fall": true,
+      "tool_calls": 36,
+      "tool_servers": [
+        "rpent"
+      ],
+      "tool_names": [
+        "arm_state",
+        "finish",
+        "move",
+        "move_to_pose_ik",
+        "navigate_to",
+        "observe",
+        "plan_arm_parking",
+        "press_button",
+        "sample_observed_point",
+        "solve_ik",
+        "transform_pose"
+      ],
+      "recorded_boundary_checks": {
+        "only_approved_robot_gateway": true,
+        "navigation_targets_in_command_frame": true,
+        "no_operator_camera_in_policy_state": true
+      },
+      "measured_terminal_window": {
+        "window_s": 3,
+        "position_excursion_m": 0.004075616696066667,
+        "peak_angular_speed_rad_s": 0.12601395034132637
+      },
+      "grasp_attempts": 0,
+      "opposed_contact_count": 0,
+      "no_opposed_contact_count": 0,
+      "action_errors": [],
+      "evidence": "outputs/diagnostics/door_capabilities/dashboard-A-handles/episodes/0001_benchmark_s0",
+      "video": "outputs/diagnostics/door_capabilities/dashboard-A-handles/episodes/0001_benchmark_s0/rear-follow.mp4",
+      "camera": "Rear follow; obstacle avoidance may orbit to keep the whole body visible",
+      "video_scope": "Actual action clips in execution order; inference wall time omitted; no replay or staged motion"
+    },
+    {
+      "case": "door-B",
+      "body": "unitree_g1",
+      "scene": "office_a",
+      "seed": 0,
+      "engine": "mujoco",
+      "execution_entry": "Dashboard fixed benchmark",
+      "policy_mode": "nonprivileged_autonomous",
+      "model": "gpt-6-astra",
+      "full_success": false,
+      "agent_submission": {
+        "status": "stuck",
+        "sim_time": 191.860000000188,
+        "physical_success": false,
+        "success": false
+      },
+      "failure": "timeout",
+      "opening_and_whole_body_crossing_observed": false,
+      "whole_body_on_target_side_observed": true,
+      "sampled_robot_door_contact_seen": false,
+      "manipulation_contact_reported": true,
+      "contact_sampling_note": "Private door observer sampled at approximately 10 Hz; brief contacts may be missed. Manipulation contact is not door-specific proof.",
+      "max_door_angle_deg": 60.882329803153176,
+      "terminal_hold_s": 0.0,
+      "final_sim_time_s": 191.8000000001877,
+      "frozen_scorer_min_opening_deg": 60,
+      "condition_details": {
+        "physical_door_traversal": {
+          "success": false,
+          "conditions": {
+            "closed_reset": true,
+            "physical_contact": false,
+            "sufficient_opening": true,
+            "whole_body_crossed_and_stopped": false,
+            "no_bypass": true,
+            "no_fall": true
+          }
+        }
+      },
+      "no_bypass": true,
+      "no_fall": true,
+      "tool_calls": 36,
+      "tool_servers": [
+        "rpent"
+      ],
+      "tool_names": [
+        "arm_state",
+        "finish",
+        "move",
+        "navigate_to",
+        "observe",
+        "sample_observed_point",
+        "set_camera_pose",
+        "whole_body_manipulate"
+      ],
+      "recorded_boundary_checks": {
+        "only_approved_robot_gateway": true,
+        "navigation_targets_in_command_frame": true,
+        "no_operator_camera_in_policy_state": true
+      },
+      "measured_terminal_window": {
+        "window_s": 3,
+        "position_excursion_m": 0.0017063100732750637,
+        "peak_angular_speed_rad_s": 0.10349135085777311
+      },
+      "grasp_attempts": 0,
+      "opposed_contact_count": 0,
+      "no_opposed_contact_count": 0,
+      "action_errors": [],
+      "evidence": "outputs/diagnostics/door_capabilities/dashboard-B-handles/episodes/0001_benchmark_s0",
+      "video": "outputs/diagnostics/door_capabilities/dashboard-B-handles/episodes/0001_benchmark_s0/rear-follow.mp4",
+      "camera": "Rear follow; obstacle avoidance may orbit to keep the whole body visible",
+      "video_scope": "Actual action clips in execution order; inference wall time omitted; no replay or staged motion"
+    },
+    {
+      "case": "door-C",
+      "body": "FWMiniPiper",
+      "scene": "factory_a",
+      "seed": 0,
+      "engine": "mujoco",
+      "execution_entry": "Dashboard fixed benchmark",
+      "policy_mode": "nonprivileged_autonomous",
+      "model": "gpt-6-astra",
+      "full_success": false,
+      "agent_submission": {
+        "status": "stuck",
+        "sim_time": 137.07999999992643,
+        "physical_success": false,
+        "success": false
+      },
+      "failure": null,
+      "opening_and_whole_body_crossing_observed": false,
+      "whole_body_on_target_side_observed": false,
+      "sampled_robot_door_contact_seen": true,
+      "manipulation_contact_reported": false,
+      "contact_sampling_note": "Private door observer sampled at approximately 10 Hz; brief contacts may be missed. Manipulation contact is not door-specific proof.",
+      "max_door_angle_deg": 0.3934710472268392,
+      "terminal_hold_s": 0.0,
+      "final_sim_time_s": 136.99999999992605,
+      "frozen_scorer_min_opening_deg": 60,
+      "condition_details": {
+        "physical_door_traversal": {
+          "success": false,
+          "conditions": {
+            "closed_reset": true,
+            "physical_contact": true,
+            "sufficient_opening": false,
+            "whole_body_crossed_and_stopped": false,
+            "no_bypass": true,
+            "no_fall": true
+          }
+        }
+      },
+      "no_bypass": true,
+      "no_fall": true,
+      "tool_calls": 80,
+      "tool_servers": [
+        "rpent"
+      ],
+      "tool_names": [
+        "arm_state",
+        "finish",
+        "grasp",
+        "move",
+        "move_to_pose_ik",
+        "navigate_to",
+        "observe",
+        "plan_arm_parking",
+        "sample_observed_point",
+        "set_gripper",
+        "solve_ik",
+        "transform_pose"
+      ],
+      "recorded_boundary_checks": {
+        "only_approved_robot_gateway": true,
+        "navigation_targets_in_command_frame": true,
+        "no_operator_camera_in_policy_state": true
+      },
+      "measured_terminal_window": {
+        "window_s": 3,
+        "position_excursion_m": 0.006398660485412176,
+        "peak_angular_speed_rad_s": 0.12097697510146967
+      },
+      "grasp_attempts": 4,
+      "opposed_contact_count": 3,
+      "no_opposed_contact_count": 2,
+      "action_errors": [],
+      "evidence": "outputs/diagnostics/door_capabilities/dashboard-C-handles/episodes/0001_benchmark_s0",
+      "video": "outputs/diagnostics/door_capabilities/dashboard-C-handles/episodes/0001_benchmark_s0/rear-follow.mp4",
+      "camera": "Rear follow; obstacle avoidance may orbit to keep the whole body visible",
+      "video_scope": "Actual action clips in execution order; inference wall time omitted; no replay or staged motion"
+    }
+  ],
+  "runtime_code_changes_since_freeze": [],
+  "fix_report": "outputs/diagnostics/door_capabilities/fixes/fix-report.json",
+  "limitations": [
+    "Frozen strict scorer requires 60-degree opening, door-specific sampled contact, and 1.5 s continuous low velocity. Raw verdicts are retained.",
+    "Door observer sampling around 10 Hz can miss brief contacts; manipulation contact feedback alone does not prove contact with the door.",
+    "Instantaneous angular velocity is sensitive to chassis jitter.",
+    "A versus C changes both scene and push/pull action."
+  ]
+}

@@ -1,0 +1,41 @@
+[
+  {
+    "id": "door-A",
+    "joint_exists": true,
+    "handle_exists": true,
+    "limits_deg": [
+      0.0,
+      100.0
+    ],
+    "passive": true,
+    "attached_controllers": [],
+    "direction_verified": true,
+    "full_body_feasibility_verified": false
+  },
+  {
+    "id": "door-B",
+    "joint_exists": true,
+    "handle_exists": true,
+    "limits_deg": [
+      0.0,
+      100.0
+    ],
+    "passive": true,
+    "attached_controllers": [],
+    "direction_verified": true,
+    "full_body_feasibility_verified": false
+  },
+  {
+    "id": "door-C",
+    "joint_exists": true,
+    "handle_exists": true,
+    "limits_deg": [
+      0.0,
+      105.0
+    ],
+    "passive": true,
+    "attached_controllers": [],
+    "direction_verified": true,
+    "full_body_feasibility_verified": false
+  }
+]

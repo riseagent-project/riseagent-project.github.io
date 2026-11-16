@@ -1,0 +1,249 @@
+{
+  "embodiment": "FWMiniPiper",
+  "sources": [
+    "simulation/robots/FWMiniPiper/robots/mobile_piper/sensors.yaml",
+    "simulation/robots/FWMiniPiper/robots/mobile_piper/extrinsics.yaml"
+  ],
+  "sensors": [
+    {
+      "id": "mid360",
+      "type": "lidar_rtx",
+      "model": "livox_mid360",
+      "visual": true,
+      "frame": "lidar",
+      "rate_hz": 10,
+      "mount": {
+        "parent_frame": "robot",
+        "derive": "T_fix_camera2ego @ T_lidar2fix_camera"
+      },
+      "profile": "sensor_profiles/MID360.json",
+      "range": [
+        0.1,
+        40.0
+      ],
+      "horizontal_fov_deg": [
+        0.0,
+        360.0
+      ],
+      "vertical_fov_deg": [
+        -7.0,
+        52.0
+      ],
+      "points_per_frame": 24000
+    },
+    {
+      "id": "camera_fix",
+      "type": "camera_rgbd",
+      "model": "realsense_d435",
+      "visual": true,
+      "pitch_control": {
+        "min_deg": -45.0,
+        "max_deg": 30.0,
+        "speed_deg_s": 45.0
+      },
+      "frame": "camera_fix",
+      "rate_hz": 20,
+      "mount": {
+        "parent_frame": "robot",
+        "extrinsic": "T_fix_camera2ego"
+      },
+      "optical_convention": "RDF",
+      "resolution": [
+        640,
+        480
+      ],
+      "intrinsics": {
+        "fx": 606.0,
+        "fy": 606.0,
+        "cx": 320.0,
+        "cy": 240.0
+      },
+      "streams": [
+        "color",
+        "depth_aligned",
+        "camera_info"
+      ],
+      "depth_encoding": "32FC1",
+      "clipping_range": [
+        0.05,
+        500.0
+      ]
+    },
+    {
+      "id": "camera_arm",
+      "type": "camera_rgbd",
+      "model": "realsense_d435",
+      "visual": true,
+      "visual_mount": "wrist_adapter",
+      "frame": "camera_arm",
+      "rate_hz": 20,
+      "enabled": true,
+      "mount": {
+        "parent_frame": "link6",
+        "extrinsic": "T_arm_camera2link6"
+      },
+      "optical_convention": "RDF",
+      "resolution": [
+        640,
+        480
+      ],
+      "intrinsics": {
+        "fx": 606.0,
+        "fy": 606.0,
+        "cx": 320.0,
+        "cy": 240.0
+      },
+      "streams": [
+        "color",
+        "depth_aligned",
+        "camera_info"
+      ],
+      "depth_encoding": "32FC1",
+      "clipping_range": [
+        0.05,
+        500.0
+      ]
+    },
+    {
+      "id": "livox_imu",
+      "type": "imu",
+      "model": "mid360_builtin",
+      "frame": "livox_frame",
+      "rate_hz": 200,
+      "enabled": false,
+      "mount": {
+        "parent_frame": "robot",
+        "derive": "T_imu2ego"
+      },
+      "gravity_included": true
+    },
+    {
+      "id": "third_person",
+      "type": "camera_rgbd",
+      "model": "spectator",
+      "frame": "third_person",
+      "rate_hz": 20,
+      "calibrated": false,
+      "spectator": true,
+      "mount": {
+        "parent_frame": "robot",
+        "xyz": [
+          -2.5,
+          0.0,
+          2.0
+        ]
+      },
+      "look_at": [
+        0.4,
+        0.0,
+        0.6
+      ],
+      "smoothing_s": 0.12,
+      "resolution": [
+        960,
+        720
+      ],
+      "intrinsics": {
+        "fx": 686.0,
+        "fy": 686.0,
+        "cx": 480.0,
+        "cy": 360.0
+      },
+      "streams": [
+        "color"
+      ],
+      "clipping_range": [
+        0.05,
+        500.0
+      ]
+    }
+  ],
+  "extrinsics": {
+    "T_fix_camera2ego": [
+      0.0,
+      0.0,
+      1.0,
+      -0.15868263787031175,
+      -1.0,
+      0.0,
+      0.0,
+      0.035,
+      0.0,
+      -1.0,
+      0.0,
+      1.23,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "T_lidar2fix_camera": [
+      0.01725,
+      -0.99968,
+      -0.01824,
+      0.02276,
+      0.49924,
+      0.02442,
+      -0.86612,
+      -0.06872,
+      0.86629,
+      0.00583,
+      0.4995,
+      -0.01297,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "T_arm_camera2link6": [
+      0.0041,
+      0.9698,
+      0.2437,
+      -0.0644,
+      -0.9997,
+      -0.002,
+      0.0247,
+      -0.0009,
+      0.0245,
+      -0.2438,
+      0.9695,
+      0.0256,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "imu_t_lidar": [
+      -0.011,
+      -0.02329,
+      0.04412
+    ],
+    "arm_base": {
+      "xyz": [
+        0.19831736212968826,
+        0.0,
+        0.64
+      ],
+      "rpy": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "visual": {
+      "chassis_top_z": 0.29,
+      "aluminum_xy": [
+        0.125,
+        0.25
+      ],
+      "mast_xy": [
+        0.06,
+        0.06
+      ],
+      "camera_bracket_xy": [
+        0.04,
+        0.04
+      ]
+    }
+  }
+}

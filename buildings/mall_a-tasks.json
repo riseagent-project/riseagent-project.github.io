@@ -1,0 +1,1334 @@
+{
+  "version": 3,
+  "building": "mall_a",
+  "source_scene": "mall_a",
+  "name": "商场",
+  "status": "design_pending_validation",
+  "categories": {
+    "cross_floor": "跨楼层通行",
+    "door_access": "门与门禁交互",
+    "facility_logic": "设施状态控制",
+    "integrated_service": "综合服务"
+  },
+  "task_groups": [
+    {
+      "id": "common",
+      "name": "通用任务",
+      "tasks": [
+        {
+          "id": "mall_a/shared_N01",
+          "title": "地下层到地面层",
+          "instruction": "使用电梯从原生一层到二层，即展示 B1 到 1F；不使用楼梯或扶梯。",
+          "design_revision": 3,
+          "category": "cross_floor",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "spawn_floor != target_floor",
+            "spawn_outside_cabin",
+            "normal_interlocks"
+          ],
+          "success_requirements": [
+            "actual_target_building_and_floor",
+            "full_body_and_payload_clear_of_threshold",
+            "stable_ground_support",
+            "observed_physical_elevator_use_history"
+          ],
+          "facility_condition_variants": [
+            "normal_call_and_selection",
+            "held_button_requires_release",
+            "wrong_floor_opening_is_not_arrival",
+            "obstruction_hold_and_reopen",
+            "fully_exit_before_success"
+          ],
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        },
+        {
+          "id": "mall_a/shared_N02",
+          "title": "商场电梯停运改乘",
+          "instruction": "原生一层 B1 出发，识别停运梯并改乘另一可用电梯到原生六层 5F 影院公共区；不走扶梯。",
+          "design_revision": 3,
+          "category": "cross_floor",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "first_required_stop_differs_from_spawn_floor",
+            "spawn_outside_cabin",
+            "normal_interlocks",
+            "frozen_stop_or_availability_protocol"
+          ],
+          "success_requirements": [
+            "actual_target_building_and_floor",
+            "full_body_and_payload_clear_of_threshold",
+            "stable_ground_support",
+            "observed_physical_elevator_use_history",
+            "availability_event_and_chosen_lift_history"
+          ],
+          "distinguishing_mechanism": "alternate_lift",
+          "blocking_dependency": "需绑定可复现停运或恢复初态、可见提示、可行时间预算和通行历史裁判；恢复不得依赖无限等待或策略可调用的调试接口。",
+          "facility_condition_variants": [
+            "normal_call_and_selection",
+            "held_button_requires_release",
+            "wrong_floor_opening_is_not_arrival",
+            "obstruction_hold_and_reopen",
+            "fully_exit_before_success"
+          ],
+          "explicit_logic_features": [
+            "elevator"
+          ]
+        },
+        {
+          "id": "mall_a/shared_D01",
+          "title": "北入口门通行",
+          "instruction": "从北入口门一侧打开门，通过后退出并恢复关闭；检查门扇与身体的完整通行空间。",
+          "design_revision": 3,
+          "category": "door_access",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "no_payload",
+            "door_starts_closed",
+            "permission_explicit"
+          ],
+          "success_requirements": [
+            "physical_opening",
+            "full_body_passage_history",
+            "requested_final_door_state",
+            "body_clear_of_swing_and_sensor"
+          ],
+          "explicit_logic_features": []
+        },
+        {
+          "id": "mall_a/shared_D02",
+          "title": "服务台订单柜滑门开合",
+          "instruction": "滑开 B1 Guest Service 交接台订单柜，再关闭；不包含商品取送，也不要求身体进入柜内。",
+          "design_revision": 3,
+          "category": "door_access",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "no_payload",
+            "door_starts_closed",
+            "permission_explicit"
+          ],
+          "success_requirements": [
+            "physical_sliding_opening",
+            "opening_then_closing_history",
+            "final_closed_joint",
+            "no_payload_goal"
+          ],
+          "distinguishing_mechanism": "container_sliding",
+          "blocking_dependency": "已安装独立滑门柜；夹爪可达、开合轨迹及裁判待验收。",
+          "candidate_joint": "/World/Environment/Floor_1/TaskFacilities/SlidingCabinet/frame/door_joint",
+          "candidate_joint_exists": true,
+          "explicit_logic_features": []
+        },
+        {
+          "id": "mall_a/shared_C01",
+          "title": "商场公共照明切换",
+          "instruction": "把指定公共区域照明回路设为营业清单要求的状态，保持其他回路不变。",
+          "design_revision": 3,
+          "category": "facility_logic",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "entry_already_open",
+            "requested_circuit_binding",
+            "at_least_one_state_change_required"
+          ],
+          "success_requirements": [
+            "physical_switch_actuation",
+            "actual_target_light_state",
+            "unrelated_circuits_unchanged"
+          ],
+          "explicit_logic_features": [
+            "lighting"
+          ]
+        },
+        {
+          "id": "mall_a/shared_C02",
+          "title": "空调面板模式与设定值控制",
+          "instruction": "在本场景指定可达空调面板上观察初态，将开关、模式和设定值改为任务要求；至少一项需改变，其他设备不变。评分使用面板与控制器实际状态，不要求室温达到设定温度。",
+          "design_revision": 3,
+          "category": "facility_logic",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "same_floor",
+            "entry_already_open",
+            "bound_hvac_panel",
+            "at_least_one_requested_panel_state_differs"
+          ],
+          "success_requirements": [
+            "physical_selective_button_actuation",
+            "requested_power_mode_setpoint",
+            "unrelated_devices_unchanged"
+          ],
+          "blocking_dependency": "需验证两种夹爪不误触相邻按键，并接入模式、开关和设定值裁判；不把按钮几何存在当作可按或热效果证据。",
+          "candidate_panel": "climate_F1",
+          "explicit_logic_features": [
+            "hvac"
+          ]
+        },
+        {
+          "id": "mall_a/shared_S01",
+          "title": "地下餐食与影院饮品集货",
+          "instruction": "从 B1 面食店和 5F 影院饮品点各取一件密封包装，送到 1F 北入口交接点；允许分次运输。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "原生 1=展示 B1 餐食与生鲜；2=1F 入口与零售；3=2F 服饰运动；4=3F 餐饮；5=4F 餐饮；6=5F 影院。所有评分使用原生楼层 ID。",
+          "native_station_bindings": {
+            "F1_R01": {
+              "id": "F1_R01",
+              "label": "B1 NUVORI NOODLES Pickup",
+              "floor": 1,
+              "position": [
+                14.0,
+                9.95,
+                0.755
+              ],
+              "yaw": 90,
+              "dock_xy": [
+                14.9,
+                9.95
+              ],
+              "door_id": null,
+              "delivery_min": [
+                13.76,
+                9.709999999999999,
+                0.745
+              ],
+              "delivery_max": [
+                14.24,
+                10.19,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "B1"
+            },
+            "F6_R04": {
+              "id": "F6_R04",
+              "label": "5F Velunora Drinks",
+              "floor": 6,
+              "position": [
+                48,
+                3.6,
+                18.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                48.0,
+                2.7
+              ],
+              "door_id": null,
+              "delivery_min": [
+                47.76,
+                3.3600000000000003,
+                18.744999999999997
+              ],
+              "delivery_max": [
+                48.24,
+                3.84,
+                18.945
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "5F"
+            },
+            "M_NORTH": {
+              "id": "M_NORTH",
+              "label": "1F North Entrance Delivery",
+              "floor": 2,
+              "position": [
+                57,
+                46,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                57.0,
+                45.1
+              ],
+              "door_id": "NorthDoor",
+              "delivery_min": [
+                56.76,
+                45.76,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                57.24,
+                46.24,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "mall_a/shared_S02",
+          "title": "服饰退货分类",
+          "instruction": "在 2F Guest Service 将三件刚性包装退货按服饰与运动标签分到绑定分类区，模糊件进入复核区。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "原生 1=展示 B1 餐食与生鲜；2=1F 入口与零售；3=2F 服饰运动；4=3F 餐饮；5=4F 餐饮；6=5F 影院。所有评分使用原生楼层 ID。",
+          "native_station_bindings": {
+            "F3_SERVICE": {
+              "id": "F3_SERVICE",
+              "label": "2F Guest Service",
+              "floor": 3,
+              "position": [
+                19,
+                3.5,
+                7.955
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                19.0,
+                2.6
+              ],
+              "door_id": null,
+              "delivery_min": [
+                18.76,
+                3.26,
+                7.945
+              ],
+              "delivery_max": [
+                19.24,
+                3.74,
+                8.145
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "2F"
+            },
+            "F3_R01": {
+              "id": "F3_R01",
+              "label": "2F FEMUVRA STUDIO Pickup",
+              "floor": 3,
+              "position": [
+                14.0,
+                14.95,
+                7.955
+              ],
+              "yaw": 90,
+              "dock_xy": [
+                14.9,
+                14.95
+              ],
+              "door_id": null,
+              "delivery_min": [
+                13.76,
+                14.709999999999999,
+                7.945
+              ],
+              "delivery_max": [
+                14.24,
+                15.19,
+                8.145
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "2F"
+            },
+            "F3_R03": {
+              "id": "F3_R03",
+              "label": "2F PACUVIA SPORT Pickup",
+              "floor": 3,
+              "position": [
+                14.0,
+                34.95,
+                7.955
+              ],
+              "yaw": 90,
+              "dock_xy": [
+                14.9,
+                34.95
+              ],
+              "door_id": null,
+              "delivery_min": [
+                13.76,
+                34.71,
+                7.945
+              ],
+              "delivery_max": [
+                14.24,
+                35.190000000000005,
+                8.145
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "2F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "mall_a/shared_S03",
+          "title": "影院低位饮品补货",
+          "instruction": "以 5F 影院饮品点为补货目标，从同层服务点逐件补齐指定数量，只使用动态任务物品。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "原生 1=展示 B1 餐食与生鲜；2=1F 入口与零售；3=2F 服饰运动；4=3F 餐饮；5=4F 餐饮；6=5F 影院。所有评分使用原生楼层 ID。",
+          "native_station_bindings": {
+            "F6_SERVICE": {
+              "id": "F6_SERVICE",
+              "label": "5F Guest Service",
+              "floor": 6,
+              "position": [
+                19,
+                3.5,
+                18.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                19.0,
+                2.6
+              ],
+              "door_id": null,
+              "delivery_min": [
+                18.76,
+                3.26,
+                18.744999999999997
+              ],
+              "delivery_max": [
+                19.24,
+                3.74,
+                18.945
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "5F"
+            },
+            "F6_R04": {
+              "id": "F6_R04",
+              "label": "5F Velunora Drinks",
+              "floor": 6,
+              "position": [
+                48,
+                3.6,
+                18.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                48.0,
+                2.7
+              ],
+              "door_id": null,
+              "delivery_min": [
+                47.76,
+                3.3600000000000003,
+                18.744999999999997
+              ],
+              "delivery_max": [
+                48.24,
+                3.84,
+                18.945
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "5F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "mall_a/shared_S04",
+          "title": "地下生鲜自提交接",
+          "instruction": "从 B1 Fresh Market Online Orders 取指定订单的密封轻型包装，送到 1F 南入口；核对订单身份。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "原生 1=展示 B1 餐食与生鲜；2=1F 入口与零售；3=2F 服饰运动；4=3F 餐饮；5=4F 餐饮；6=5F 影院。所有评分使用原生楼层 ID。",
+          "native_station_bindings": {
+            "F1_R08": {
+              "id": "F1_R08",
+              "label": "B1 Fresh Market Online Orders",
+              "floor": 1,
+              "position": [
+                46,
+                33.4,
+                0.755
+              ],
+              "yaw": -90,
+              "dock_xy": [
+                45.1,
+                33.4
+              ],
+              "door_id": null,
+              "delivery_min": [
+                45.76,
+                33.16,
+                0.745
+              ],
+              "delivery_max": [
+                46.24,
+                33.64,
+                0.9450000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "B1"
+            },
+            "M_SOUTH": {
+              "id": "M_SOUTH",
+              "label": "1F South Entrance Delivery",
+              "floor": 2,
+              "position": [
+                27.0,
+                -2,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                27.0,
+                -2.9
+              ],
+              "door_id": null,
+              "delivery_min": [
+                26.76,
+                -2.24,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                27.24,
+                -1.76,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "mall_a/shared_S05",
+          "title": "餐饮楼层双订单核对",
+          "instruction": "分别从 3F 火锅店和 4F 披萨店取刚性密封外卖，送到 1F Guest Service 的两个订单区，禁止混单。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "原生 1=展示 B1 餐食与生鲜；2=1F 入口与零售；3=2F 服饰运动；4=3F 餐饮；5=4F 餐饮；6=5F 影院。所有评分使用原生楼层 ID。",
+          "native_station_bindings": {
+            "F4_R01": {
+              "id": "F4_R01",
+              "label": "3F BROTHORA HOTPOT Pickup",
+              "floor": 4,
+              "position": [
+                14.0,
+                19.95,
+                11.555000000000001
+              ],
+              "yaw": 90,
+              "dock_xy": [
+                14.9,
+                19.95
+              ],
+              "door_id": null,
+              "delivery_min": [
+                13.76,
+                19.71,
+                11.545000000000002
+              ],
+              "delivery_max": [
+                14.24,
+                20.189999999999998,
+                11.745000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "3F"
+            },
+            "F5_R03": {
+              "id": "F5_R03",
+              "label": "4F OVENUVRA PIZZA Pickup",
+              "floor": 5,
+              "position": [
+                46.0,
+                19.95,
+                15.155000000000001
+              ],
+              "yaw": -90,
+              "dock_xy": [
+                45.1,
+                19.95
+              ],
+              "door_id": null,
+              "delivery_min": [
+                45.76,
+                19.71,
+                15.145000000000001
+              ],
+              "delivery_max": [
+                46.24,
+                20.189999999999998,
+                15.345
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "4F"
+            },
+            "F2_SERVICE": {
+              "id": "F2_SERVICE",
+              "label": "1F Guest Service",
+              "floor": 2,
+              "position": [
+                19,
+                3.5,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                19.0,
+                2.6
+              ],
+              "door_id": null,
+              "delivery_min": [
+                18.76,
+                3.26,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                19.24,
+                3.74,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "mall_a/shared_S06",
+          "title": "零售与运动跨类订单",
+          "instruction": "将 1F 玩具点和 2F 运动点的两种包装商品配成同一可见订单，逐件送到 1F Guest Service 并核对齐套。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "原生 1=展示 B1 餐食与生鲜；2=1F 入口与零售；3=2F 服饰运动；4=3F 餐饮；5=4F 餐饮；6=5F 影院。所有评分使用原生楼层 ID。",
+          "native_station_bindings": {
+            "F2_R03": {
+              "id": "F2_R03",
+              "label": "1F POMUVO TOYS Pickup",
+              "floor": 2,
+              "position": [
+                14.0,
+                34.95,
+                4.355
+              ],
+              "yaw": 90,
+              "dock_xy": [
+                14.9,
+                34.95
+              ],
+              "door_id": null,
+              "delivery_min": [
+                13.76,
+                34.71,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                14.24,
+                35.190000000000005,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            },
+            "F3_R03": {
+              "id": "F3_R03",
+              "label": "2F PACUVIA SPORT Pickup",
+              "floor": 3,
+              "position": [
+                14.0,
+                34.95,
+                7.955
+              ],
+              "yaw": 90,
+              "dock_xy": [
+                14.9,
+                34.95
+              ],
+              "door_id": null,
+              "delivery_min": [
+                13.76,
+                34.71,
+                7.945
+              ],
+              "delivery_max": [
+                14.24,
+                35.190000000000005,
+                8.145
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "2F"
+            },
+            "F2_SERVICE": {
+              "id": "F2_SERVICE",
+              "label": "1F Guest Service",
+              "floor": 2,
+              "position": [
+                19,
+                3.5,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                19.0,
+                2.6
+              ],
+              "door_id": null,
+              "delivery_min": [
+                18.76,
+                3.26,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                19.24,
+                3.74,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": []
+        },
+        {
+          "id": "mall_a/shared_S07",
+          "title": "影院闭店回收与设施复位",
+          "instruction": "将 5F 影院饮品点指定未开封包装送回同层 Guest Service，然后关闭清单指定灯光与空调；其他营业区不变。",
+          "design_revision": 3,
+          "category": "integrated_service",
+          "required_bodies": [
+            "FWMiniPiper",
+            "unitree_g1"
+          ],
+          "status": "design_pending_two_body_validation",
+          "evaluation_enabled": false,
+          "qualification": {
+            "FWMiniPiper": "not_verified",
+            "unitree_g1": "not_verified"
+          },
+          "gates": {
+            "asset_and_dynamic_binding": "pending",
+            "reset_and_nontrivial_goal": "pending",
+            "two_body_ik_and_collision": "pending",
+            "contact_grasp_or_actuation": "pending",
+            "loaded_route_and_staging": "pending",
+            "outcome_and_history_scorer": "pending",
+            "FWMiniPiper_full_witness": "pending",
+            "unitree_g1_full_witness": "pending"
+          },
+          "allows_multiple_trips": true,
+          "requires_robot_basket": false,
+          "requires_simultaneous_two_hands": false,
+          "initial_requirements": [
+            "dynamic_graspable_targets",
+            "body_common_reachable_supports",
+            "staging_supports_at_required_interactions",
+            "frozen_identity_and_quantity"
+          ],
+          "success_requirements": [
+            "correct_object_identity_and_quantity",
+            "correct_destination",
+            "released_and_stably_supported",
+            "instruction_specific_device_and_history_conditions"
+          ],
+          "floor_role_context": "原生 1=展示 B1 餐食与生鲜；2=1F 入口与零售；3=2F 服饰运动；4=3F 餐饮；5=4F 餐饮；6=5F 影院。所有评分使用原生楼层 ID。",
+          "native_station_bindings": {
+            "F6_R04": {
+              "id": "F6_R04",
+              "label": "5F Velunora Drinks",
+              "floor": 6,
+              "position": [
+                48,
+                3.6,
+                18.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                48.0,
+                2.7
+              ],
+              "door_id": null,
+              "delivery_min": [
+                47.76,
+                3.3600000000000003,
+                18.744999999999997
+              ],
+              "delivery_max": [
+                48.24,
+                3.84,
+                18.945
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "5F"
+            },
+            "F6_SERVICE": {
+              "id": "F6_SERVICE",
+              "label": "5F Guest Service",
+              "floor": 6,
+              "position": [
+                19,
+                3.5,
+                18.755
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                19.0,
+                2.6
+              ],
+              "door_id": null,
+              "delivery_min": [
+                18.76,
+                3.26,
+                18.744999999999997
+              ],
+              "delivery_max": [
+                19.24,
+                3.74,
+                18.945
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "5F"
+            }
+          },
+          "floor_binding_status": "source_station_ids_checked; task reset and support geometry pending",
+          "blocking_dependency": "需按本任务配置动态物品、身份或数量标签、交接与暂放区域及指令专属历史判据；源站点存在不代表新任务初态已实现。",
+          "explicit_logic_features": [
+            "lighting",
+            "hvac"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "specific",
+      "name": "专用任务",
+      "tasks": [
+        {
+          "id": "mall_a/extension_N03",
+          "category": "cross_floor",
+          "title": "G1 扶梯乘坐",
+          "instruction": "在商场从原生一层乘上行扶梯至二层；检查踏板接触、全身到达及离开末端。",
+          "required_bodies": [
+            "unitree_g1"
+          ],
+          "evaluation_enabled": false,
+          "status": "scripted_mechanism_demo_exists; autonomous_body_task_witness_pending",
+          "excluded_from_common_minimum": true,
+          "reason": "FWMiniPiper 尚无踏步承载、上下梯与姿态稳定完整证据，不能放入两本体共同任务集。"
+        },
+        {
+          "id": "mall_a/extension_P01",
+          "category": "integrated_service",
+          "title": "车载篮筐双订单分区配送",
+          "instruction": "分别从 3F 火锅店和 4F 披萨店取刚性密封外卖，送到 1F Guest Service 的两个订单区，禁止混单。本专用任务要求两件包装均稳定装入车载篮筐后再开始交付，运输途中保持订单区分，逐件取出并释放到正确交接区域。",
+          "required_bodies": [
+            "FWMiniPiper"
+          ],
+          "evaluation_enabled": false,
+          "status": "design_pending_body_validation",
+          "excluded_from_common_minimum": true,
+          "source_common_task": "mall_a/shared_S05",
+          "native_station_bindings": {
+            "F4_R01": {
+              "id": "F4_R01",
+              "label": "3F BROTHORA HOTPOT Pickup",
+              "floor": 4,
+              "position": [
+                14.0,
+                19.95,
+                11.555000000000001
+              ],
+              "yaw": 90,
+              "dock_xy": [
+                14.9,
+                19.95
+              ],
+              "door_id": null,
+              "delivery_min": [
+                13.76,
+                19.71,
+                11.545000000000002
+              ],
+              "delivery_max": [
+                14.24,
+                20.189999999999998,
+                11.745000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "3F"
+            },
+            "F5_R03": {
+              "id": "F5_R03",
+              "label": "4F OVENUVRA PIZZA Pickup",
+              "floor": 5,
+              "position": [
+                46.0,
+                19.95,
+                15.155000000000001
+              ],
+              "yaw": -90,
+              "dock_xy": [
+                45.1,
+                19.95
+              ],
+              "door_id": null,
+              "delivery_min": [
+                45.76,
+                19.71,
+                15.145000000000001
+              ],
+              "delivery_max": [
+                46.24,
+                20.189999999999998,
+                15.345
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "4F"
+            },
+            "F2_SERVICE": {
+              "id": "F2_SERVICE",
+              "label": "1F Guest Service",
+              "floor": 2,
+              "position": [
+                19,
+                3.5,
+                4.355
+              ],
+              "yaw": 0,
+              "dock_xy": [
+                19.0,
+                2.6
+              ],
+              "door_id": null,
+              "delivery_min": [
+                18.76,
+                3.26,
+                4.345000000000001
+              ],
+              "delivery_max": [
+                19.24,
+                3.74,
+                4.545000000000001
+              ],
+              "support_size": [
+                1.4,
+                0.65
+              ],
+              "floor_label": "1F"
+            }
+          },
+          "requires_robot_basket": true,
+          "requires_simultaneous_two_hands": false,
+          "reason": "测试 FWMiniPiper 车载篮筐的多件承载、订单区分与再抓取；需验证篮内双件空间、总负载、抗滑和手臂取放路径，不要求 G1 配备相同篮筐。"
+        }
+      ]
+    }
+  ]
+}
